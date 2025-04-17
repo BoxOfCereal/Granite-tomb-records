@@ -2,23 +2,13 @@
         <div class="container mx-auto px-4">
             <h2 class="text-3xl uppercase mb-12 text-center">Gallery</h2>
             <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-                <!-- Photo 1 -->
-                <div class="bg-black aspect-square border border-light"></div>
-                
-                <!-- Photo 2 -->
-                <div class="bg-black aspect-square border border-light"></div>
-                
-                <!-- Photo 3 -->
-                <div class="bg-black aspect-square border border-light"></div>
-                
-                <!-- Photo 4 -->
-                <div class="bg-black aspect-square border border-light"></div>
-                
-                <!-- Photo 5 -->
-                <div class="bg-black aspect-square border border-light"></div>
-                
-                <!-- Photo 6 -->
-                <div class="bg-black aspect-square border border-light"></div>
+                <!-- Photo n -->
+                {% for img in collections.galleryImages %}
+                <div class="bg-black aspect-square border border-light">
+                    <img src="{{ img.src }}" alt="{{ img.alt }}">
+
+                </div>
+                {% endfor %}
             </div>
         </div>
     </section>

@@ -1,7 +1,21 @@
+const fs = require("fs");
+const path = require("path");
+
 module.exports = function(eleventyConfig) {
+
     // Set directories
     eleventyConfig.addPassthroughCopy("src/css");
     eleventyConfig.addPassthroughCopy("src/imgs");
+
+    eleventyConfig.addCollection("galleryImages", function(collectionApi) {
+        const dir = "src/imgs/gallery";
+        return fs.readdirSync(dir)
+          .filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file))
+          .map(file => ({
+            src: `/imgs/gallery/${file}`,
+            alt: path.parse(file).name
+          }));
+      });
     return {
         dir: {
             input: "src",
