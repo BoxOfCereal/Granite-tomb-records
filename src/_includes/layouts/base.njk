@@ -58,7 +58,7 @@
             cursor: pointer;
         }
         
-        .video-thumbnail::after {
+        {# .video-thumbnail::after {
             content: '\f144';
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
@@ -70,7 +70,7 @@
             color: white;
             opacity: 0.8;
             text-shadow: 0 0 10px rgba(0,0,0,0.7);
-        }
+        } #}
         
         .social-float {
             position: fixed;
@@ -98,7 +98,7 @@
     {% include "socialMediaFloat.njk" %}
     {% include "heroSection.njk" %}
     {% include "aboutSection.njk" %}
-    {% include "bandsSection.njk" %}
+    {# {% include "bandsSection.njk" %} #}
     {% include "videosSection.njk" %}
     {% include "gallerySection.njk" %}
     {% include "contactSection.njk" %}
@@ -115,20 +115,12 @@
             });
         });
         
-        // Video thumbnail click handler (would be replaced with actual video implementation)
+        {# // Video thumbnail click handler (would be replaced with actual video implementation)
         document.querySelectorAll('.video-thumbnail').forEach(thumbnail => {
             thumbnail.addEventListener('click', function() {
                 alert('This would open a video player in a real implementation');
             });
-        });
+        }); #}
     </script>
 </body>
-</html>{% include "socialMediaFloat.njk" %}
-{% include "navigation.njk" %}
-{% include "heroSection.njk" %}
-{% include "aboutSection.njk" %}
-{% include "bandsSection.njk" %}
-{% include "videosSection.njk" %}
-{% include "gallerySection.njk" %}
-{% include "contactSection.njk" %}
-{% include "footer.njk" %}
+</html>
