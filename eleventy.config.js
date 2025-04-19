@@ -8,7 +8,7 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/imgs");
 
     // Add admin directory decap
-    eleventyConfig.addPassthroughCopy("admin");
+    eleventyConfig.addPassthroughCopy("src/admin");
 
     eleventyConfig.addCollection("galleryImages", function(collectionApi) {
         const dir = "src/imgs/gallery";
