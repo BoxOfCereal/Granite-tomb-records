@@ -15,7 +15,7 @@ module.exports = function(eleventyConfig) {
         return fs.readdirSync(dir)
           .filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file))
           .map(file => ({
-            src: `/imgs/gallery/${file}`,
+            src: `imgs/gallery/${file}`,
             alt: path.parse(file).name
           }));
       });
