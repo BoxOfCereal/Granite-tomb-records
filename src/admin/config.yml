@@ -24,9 +24,24 @@ site_url: https://6803a316d0758b0008e05c43--papaya-choux-523d7b.netlify.app
 media_folder: imgs
 public_folder: imgs
 collections:
-  - name: "posters" # Used in routes, e.g., /admin/collections/posters
-    label: "Posters" # Used in the UI
-    folder: "imgs/posters" # The path to the folder where the documents are stored
-    create: true # Allow users to create new documents in this collection
-    fields: # The fields for each document, usually in front matter
-      - { label: "Layout", name: "layout", widget: "image" }
+  - name: "posters"
+    label: "Poster Images"
+    folder: "imgs/posters"
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: ['order', 'title', 'date'] # Users can sort by these fields
+    fields:
+      - { label: "Title", name: "title", widget: "string", required: false }
+      - { label: "Order", name: "order", widget: "number", required: false }
+      - { label: "Poster Image", name: "image", widget: "image" }
+      - { label: "Description", name: "description", widget: "text", required: false }
+  - name: "live_photos"
+    label: "Live Photos"
+    folder: "imgs/live"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string", required: false }
+      - { label: "Order", name: "order", widget: "number", required: false }
+      - { label: "Photo", name: "image", widget: "image" }
+      - { label: "Description", name: "description", widget: "text", required: false }
