@@ -4,9 +4,8 @@
             <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
                 <!-- Photo n -->
                 {% for img in collections.posterImages %}
-                <div class="bg-black aspect-square border border-light">
-                    <img src="{{ img.src }}" alt="{{ img.alt }}">
-
+                <div class="bg-black aspect-square border border-light overflow-hidden">
+                    <img src="{{ img.src }}" alt="{{ img.alt }}" class="w-full h-full object-cover">
                 </div>
                 {% endfor %}
             </div>
