@@ -128,5 +128,25 @@ module.exports = function(eleventyConfig) {
 };
 ```
 
+## Decap CMS & Eleventy Integration: Key Points
 
+- **Decap CMS Paths Are Relative to config.yml:**  
+  All `media_folder` and `folder` paths in `config.yml` are relative to the location of the config file (e.g., `src/admin/config.yml`).  
+  To target `src/imgs`, use `../imgs`. To target `src/imgs/posters`, use `../imgs/posters`.
 
+- **Never Point CMS to _site:**  
+  The CMS should always read/write to your source files, not your build output (`_site`).  
+  Paths like `_site/imgs` will break content management and cause entries to disappear.
+
+- **Media Uploads Location:**  
+  With `media_folder: ../imgs`, uploaded images go to `src/imgs`.  
+  With `folder: ../imgs/posters`, poster entry `.md` files go to `src/imgs/posters`.
+
+- **Entries Not Showing Up?**  
+  If the CMS shows no entries, check that your `folder` points to the actual source folder containing your `.md` files, and that these files exist.
+
+- **Eleventy Reads .md Files for Collections:**  
+  Use a collection in Eleventy that reads and parses the `.md` files in your posters folder (using `gray-matter`), not just the images.
+
+- **Consistent Structure:**  
+  Keep all content and images inside `src/` for best results and to avoid confusion between source and build output.
