@@ -21,12 +21,12 @@ logo_url: https://decapbridge.com/decapcms-with-bridge.svg
 # Add site links in DecapCMS (optional)
 site_url: https://6803a316d0758b0008e05c43--papaya-choux-523d7b.netlify.app
 
-media_folder: imgs
+media_folder: ../imgs
 public_folder: /imgs
 collections:
   - name: "posters"
     label: "Poster Images"
-    folder: "imgs/posters"
+    folder: "../imgs/posters"
     create: true
     slug: "{{slug}}"
     sortable_fields: ['order', 'title', 'date'] # Users can sort by these fields
