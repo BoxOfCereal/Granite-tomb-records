@@ -1,5 +1,14 @@
 # Notes
 
+## example configs
+https://github.com/decaporg/decap-cms/blob/main/dev-test/config.yml
+
+
+## boilerplate 
+https://github.com/ixartz/Eleventy-Starter-Boilerplate
+
+### TODO
+Get the boiler pulley going, get the decap bridge, then put the custom site inwell I'm gonna take me a couple weeks
 ## Setup
 
 npm install @11ty/eleventy
@@ -12,6 +21,9 @@ npx @11ty/eleventy --serve
 https://github.com/decaporg/decap-cms/discussions/7419#discussioncomment-12630236
 https://decapbridge.com/
 
+#### problems
+##### yml 404
+I was getting a 404 from my yaml file but it needs to be YML as per the decap spec.
 
 ## Images not showing up in the build
 

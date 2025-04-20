@@ -6,102 +6,13 @@
     <title>DIAMOND NOISE | Extreme Metal Booking Agency</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap');
-        
-        body {
-            font-family: 'Archivo', sans-serif;
-            font-weight: 400;
-            letter-spacing: -0.5px;
-            background-color: #000;
-            color: #fff;
-            scroll-behavior: smooth;
-        }
-        
-        h1, h2, h3, h4, h5, h6,
-        .uppercase {
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-        
-        .diamond-logo {
-            width: 200px;
-            height: 200px;
-            transform: rotate(45deg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 2px solid #fff;
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .diamond-logo-inner {
-            transform: rotate(-45deg);
-            text-align: center;
-            width: 140%;
-            letter-spacing: 2px;
-        }
-        
-        .band-card {
-            transition: all 0.3s ease;
-        }
-        
-        .band-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(255,255,255,0.3);
-        }
-        
-        .video-thumbnail {
-            position: relative;
-            cursor: pointer;
-        }
-        
-        {# .video-thumbnail::after {
-            content: '\f144';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3rem;
-            color: white;
-            opacity: 0.8;
-            text-shadow: 0 0 10px rgba(0,0,0,0.7);
-        } #}
-        
-        .social-float {
-            position: fixed;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 100;
-        }
-        
-        .text-muted {
-            color: #aaa;
-        }
-        
-        .bg-dark {
-            background-color: #111;
-        }
-        
-        .border-light {
-            border-color: #333;
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     {% include "nav.njk" %}
     {% include "socialMediaFloat.njk" %}
-    {% include "heroSection.njk" %}
-    {% include "aboutSection.njk" %}
-    {# {% include "bandsSection.njk" %} #}
-    {% include "videosSection.njk" %}
-    {% include "gallerySection.njk" %}
-    {% include "contactSection.njk" %}
+    
+    {{ content | safe }}
 
     {% include "footer.njk" %}
     <script>

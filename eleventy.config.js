@@ -10,12 +10,12 @@ module.exports = function(eleventyConfig) {
     // Add admin directory decap
     eleventyConfig.addPassthroughCopy("src/admin");
 
-    eleventyConfig.addCollection("galleryImages", function(collectionApi) {
-        const dir = "src/imgs/gallery";
+    eleventyConfig.addCollection("posterImages", function(collectionApi) {
+        const dir = "src/imgs/posters";
         return fs.readdirSync(dir)
           .filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file))
           .map(file => ({
-            src: `imgs/gallery/${file}`,
+            src: `imgs/posters/${file}`,
             alt: path.parse(file).name
           }));
       });
