@@ -128,25 +128,51 @@ module.exports = function(eleventyConfig) {
 };
 ```
 
-## Decap CMS & Eleventy Integration: Key Points
+## Decap CMS & Eleventy Integration: Key Points (Updated)
 
-- **Decap CMS Paths Are Relative to config.yml:**  
-  All `media_folder` and `folder` paths in `config.yml` are relative to the location of the config file (e.g., `src/admin/config.yml`).  
-  To target `src/imgs`, use `../imgs`. To target `src/imgs/posters`, use `../imgs/posters`.
+- **Use Repository-Root-Relative Paths:**  
+  All `media_folder` and `folder` paths in `config.yml` must be relative to the root of your repository, NOT relative to the config file. For example:
+  - To target `src/imgs`, use `src/imgs`.
+  - To target `src/imgs/posters`, use `src/imgs/posters`.
 
 - **Never Point CMS to _site:**  
   The CMS should always read/write to your source files, not your build output (`_site`).  
   Paths like `_site/imgs` will break content management and cause entries to disappear.
 
 - **Media Uploads Location:**  
-  With `media_folder: ../imgs`, uploaded images go to `src/imgs`.  
-  With `folder: ../imgs/posters`, poster entry `.md` files go to `src/imgs/posters`.
+  With `media_folder: src/imgs`, uploaded images go to `src/imgs`.  
+  With `folder: src/imgs/posters`, poster entry `.md` files go to `src/imgs/posters`.
 
 - **Entries Not Showing Up?**  
-  If the CMS shows no entries, check that your `folder` points to the actual source folder containing your `.md` files, and that these files exist.
+  If the CMS shows no entries, check that your `folder` points to the actual source folder containing your `.md` files, and that these files exist.  
+  Avoid using `..` in paths—Decap CMS does not support parent directory traversal in these fields.
+
+- **404 Errors in CMS Console:**  
+  If you see 404 errors for paths like `/github/git/trees/main:../imgs/posters`, it's because Decap CMS does not support `..` in collection or media paths. Use paths from the repo root.
 
 - **Eleventy Reads .md Files for Collections:**  
   Use a collection in Eleventy that reads and parses the `.md` files in your posters folder (using `gray-matter`), not just the images.
 
 - **Consistent Structure:**  
   Keep all content and images inside `src/` for best results and to avoid confusion between source and build output.
+
+- **Example Working Config:**
+
+  ```yaml
+  media_folder: src/imgs
+  public_folder: /imgs
+  collections:
+    - name: "posters"
+      label: "Poster Images"
+      folder: src/imgs/posters
+      create: true
+      slug: "{{slug}}"
+      sortable_fields: ['order', 'title', 'date']
+      fields:
+        - { label: "Title", name: "title", widget: "string", required: false }
+        - { label: "Order", name: "order", widget: "number", required: false }
+        - { label: "Poster Image", name: "image", widget: "image" }
+        - { label: "Description", name: "description", widget: "text", required: false }
+  ```
+
+This setup is now tested and working!
