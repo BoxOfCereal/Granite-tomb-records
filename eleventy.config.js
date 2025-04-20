@@ -10,15 +10,26 @@ module.exports = function(eleventyConfig) {
     // Add admin directory decap
     eleventyConfig.addPassthroughCopy("src/admin");
 
-    eleventyConfig.addCollection("posterImages", function(collectionApi) {
-        const dir = "src/imgs/posters";
-        return fs.readdirSync(dir)
-          .filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file))
-          .map(file => ({
-            src: `imgs/posters/${file}`,
-            alt: path.parse(file).name
-          }));
-      });
+    const matter = require("gray-matter");
+
+eleventyConfig.addCollection("posterImages", function(collectionApi) {
+  const dir = "src/imgs/posters";
+  return fs.readdirSync(dir)
+    .filter(file => file.endsWith(".md"))
+    .map(file => {
+      const fullPath = path.join(dir, file);
+      const fileContents = fs.readFileSync(fullPath, "utf8");
+      const { data } = matter(fileContents);
+      return {
+        ...data,
+        // Optionally, add a computed src for convenience
+        src: data.image,
+        file: file
+      };
+    })
+    // Optional: sort by order field if present
+    .sort((a, b) => (a.order || 0) - (b.order || 0));
+});
     return {
         dir: {
             input: "src",
