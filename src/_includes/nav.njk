@@ -1,7 +1,7 @@
 <!-- Navigation -->
 <nav class="py-6">
     <div class="container mx-auto px-4">
-        <div class="flex justify-center space-x-12">
+        <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-12">
             {% for item in navigation %}
                 <a href="{{ item.url }}" class="text-white hover:text-muted uppercase text-sm tracking-widest transition">{{ item.title }}</a>
             {% endfor %}
