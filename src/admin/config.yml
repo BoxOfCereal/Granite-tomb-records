@@ -54,4 +54,20 @@ collections:
           { label: "Name", name: "name", widget: "string" },
           { label: "Genre", name: "genre", widget: "string" },
           { label: "Country", name: "country", widget: "string" }
-        ]}
+        ]} 
+        
+  - name: "videos"
+    label: "Videos"
+    files:
+      - name: "videos"
+        label: "Videos"
+        file: "src/_data/videos.json"
+        format: "json"
+        fields:
+          - label: "Videos"
+            name: "videos"
+            widget: "list"
+            fields:
+              - { label: "YouTube ID", name: "id", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Caption", name: "caption", widget: "string" }
