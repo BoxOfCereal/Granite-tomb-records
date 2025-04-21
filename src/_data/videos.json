@@ -1,14 +1,12 @@
-{
-  "videos": [
-    {
-      "id": "kXYiU_JCYtU",
-      "title": "Festival Highlights",
-      "caption": "FESTIVAL HIGHLIGHTS"
-    },
-    {
-      "id": "kXYiU_JCYtU",
-      "title": "Festival Highlights",
-      "caption": "FESTIVAL HIGHLIGHTS"
-    }
-  ]
-}
+[
+  {
+    "id": "kXYiU_JCYtU",
+    "title": "Festival Highlights",
+    "caption": "FESTIVAL HIGHLIGHTS"
+  },
+  {
+    "id": "kXYiU_JCYtU",
+    "title": "Festival Highlights",
+    "caption": "FESTIVAL HIGHLIGHTS"
+  }
+]

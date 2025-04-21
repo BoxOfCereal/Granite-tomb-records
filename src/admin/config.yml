@@ -23,23 +23,26 @@ site_url: https://6803a316d0758b0008e05c43--papaya-choux-523d7b.netlify.app
 
 media_folder: src/imgs
 public_folder: /imgs
+
 collections:
   - name: "posters"
     label: "Poster Images"
     folder: "src/imgs/posters"
     create: true
     slug: "{{slug}}"
-    sortable_fields: ['order', 'title', 'date'] # Users can sort by these fields
+    sortable_fields: ['order', 'title', 'date']
     fields:
       - { label: "Title", name: "title", widget: "string", required: false }
       - { label: "Order", name: "order", widget: "number", required: false }
       - { label: "Poster Image", name: "image", widget: "image" }
       - { label: "Description", name: "description", widget: "text", required: false }
+
   - name: "live_photos"
     label: "Live Photos"
-    folder: "imgs/live"
+    folder: "src/imgs/live"
     create: true
     slug: "{{slug}}"
+    sortable_fields: ['order', 'title']
     fields:
       - { label: "Title", name: "title", widget: "string", required: false }
       - { label: "Order", name: "order", widget: "number", required: false }
@@ -48,26 +51,29 @@ collections:
 
   - name: "bands"
     label: "Bands"
-    file: "src/_data/bands.json"
+    folder: "src/bands"
+    create: true
+    slug: "{{slug}}"
     fields:
-      - { label: "Bands", name: "bands", widget: "list", fields: [
-          { label: "Name", name: "name", widget: "string" },
-          { label: "Genre", name: "genre", widget: "string" },
-          { label: "Country", name: "country", widget: "string" }
-        ]} 
-        
+      - { label: "Band Name", name: "name", widget: "string" }
+      - { label: "Genre", name: "genre", widget: "string" }
+      - { label: "Country", name: "country", widget: "string" }
+      - { label: "Image", name: "image", widget: "image" }
+      - label: "Social"
+        name: "social"
+        widget: "object"
+        fields:
+          - { label: "Website", name: "website", widget: "string", required: false }
+          - { label: "Instagram", name: "instagram", widget: "string", required: false }
+          - { label: "Facebook", name: "facebook", widget: "string", required: false }
+          - { label: "Twitter", name: "twitter", widget: "string", required: false }
+
   - name: "videos"
     label: "Videos"
-    files:
-      - name: "videos"
-        label: "Videos"
-        file: "src/_data/videos.json"
-        format: "json"
-        fields:
-          - label: "Videos"
-            name: "videos"
-            widget: "list"
-            fields:
-              - { label: "YouTube ID", name: "id", widget: "string" }
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Caption", name: "caption", widget: "string" }
+    folder: "src/videos"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "YouTube ID", name: "id", widget: "string" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Caption", name: "caption", widget: "string" }

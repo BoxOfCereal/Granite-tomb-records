@@ -9,22 +9,22 @@
             id="main-video"
             width="100%"
             height="100%"
-            src="https://www.youtube.com/embed/{{ videos.videos[0].id }}"
-            title="{{ videos.videos[0].title }}"
+            src="https://www.youtube.com/embed/{{ collections.videos[0].id }}"
+            title="{{ collections.videos[0].title }}"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
             class="rounded w-full h-56 md:h-full"
           ></iframe>
         </div>
-        {% if videos.videos[0].caption %}
-        <p class="mt-2 text-white text-lg">{{ videos.videos[0].caption }}</p>
+        {% if videos[0].caption %}
+        <p class="mt-2 text-white text-lg">{{ videos[0].caption }}</p>
         {% endif %}
       </div>
 
       <!-- Playlist: below video on mobile, right on desktop -->
       <div class="order-2 md:order-2 md:col-span-1 space-y-4 mt-6 md:mt-0">
-        {% for video in videos.videos %}
+        {% for video in videos %}
         <button
           class="block w-full text-left text-white hover:bg-gray-800 p-2 rounded transition"
           onclick="changeVideo('{{ video.id }}', '{{ video.caption | escape }}')"
