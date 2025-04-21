@@ -1,9 +1,9 @@
 <section class="py-20 bg-dark">
   <div class="container mx-auto px-4">
     <h2 class="text-3xl uppercase mb-12 text-center text-white">Music Player</h2>
-    <div class="grid grid-cols-5 gap-8">
-      <!-- Left side: 4 columns for video player -->
-      <div class="col-span-4">
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+      <!-- Video Player: always first -->
+      <div class="order-1 md:order-1 md:col-span-4">
         <div class="aspect-video bg-black border border-light flex items-center justify-center relative">
           <iframe
             id="main-video"
@@ -14,6 +14,7 @@
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
+            class="rounded w-full h-56 md:h-full"
           ></iframe>
         </div>
         {% if videos[0].caption %}
@@ -21,8 +22,8 @@
         {% endif %}
       </div>
 
-      <!-- Right side: 1 column for playlist -->
-      <div class="col-span-1 space-y-4">
+      <!-- Playlist: below video on mobile, right on desktop -->
+      <div class="order-2 md:order-2 md:col-span-1 space-y-4 mt-6 md:mt-0">
         {% for video in videos %}
         <button
           class="block w-full text-left text-white hover:bg-gray-800 p-2 rounded transition"
