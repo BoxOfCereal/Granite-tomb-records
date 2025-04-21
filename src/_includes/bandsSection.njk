@@ -1,62 +1,14 @@
 <section class="py-20 bg-black">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl uppercase mb-12 text-center">Bands We Work With</h2>
-            <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                <!-- Band 1 -->
-                <div class="band-card bg-dark p-6 border border-light text-center">
-                    <div class="w-32 h-32 mx-auto mb-4 bg-black"></div>
-                    <h3 class="text-lg uppercase mb-2">CARCASS</h3>
-                    <p class="text-muted text-sm">Death Metal / UK</p>
-                </div>
-                
-                <!-- Band 2 -->
-                <div class="band-card bg-dark p-6 border border-light text-center">
-                    <div class="w-32 h-32 mx-auto mb-4 bg-black"></div>
-                    <h3 class="text-lg uppercase mb-2">MORBID ANGEL</h3>
-                    <p class="text-muted text-sm">Death Metal / USA</p>
-                </div>
-                
-                <!-- Band 3 -->
-                <div class="band-card bg-dark p-6 border border-light text-center">
-                    <div class="w-32 h-32 mx-auto mb-4 bg-black"></div>
-                    <h3 class="text-lg uppercase mb-2">MAYHEM</h3>
-                    <p class="text-muted text-sm">Black Metal / Norway</p>
-                </div>
-                
-                <!-- Band 4 -->
-                <div class="band-card bg-dark p-6 border border-light text-center">
-                    <div class="w-32 h-32 mx-auto mb-4 bg-black"></div>
-                    <h3 class="text-lg uppercase mb-2">NAPALM DEATH</h3>
-                    <p class="text-muted text-sm">Grindcore / UK</p>
-                </div>
-                
-                <!-- Band 5 -->
-                <div class="band-card bg-dark p-6 border border-light text-center">
-                    <div class="w-32 h-32 mx-auto mb-4 bg-black"></div>
-                    <h3 class="text-lg uppercase mb-2">BEHEMOTH</h3>
-                    <p class="text-muted text-sm">Blackened Death Metal / Poland</p>
-                </div>
-                
-                <!-- Band 6 -->
-                <div class="band-card bg-dark p-6 border border-light text-center">
-                    <div class="w-32 h-32 mx-auto mb-4 bg-black"></div>
-                    <h3 class="text-lg uppercase mb-2">IMMOLATION</h3>
-                    <p class="text-muted text-sm">Death Metal / USA</p>
-                </div>
-                
-                <!-- Band 7 -->
-                <div class="band-card bg-dark p-6 border border-light text-center">
-                    <div class="w-32 h-32 mx-auto mb-4 bg-black"></div>
-                    <h3 class="text-lg uppercase mb-2">WATAIN</h3>
-                    <p class="text-muted text-sm">Black Metal / Sweden</p>
-                </div>
-                
-                <!-- Band 8 -->
-                <div class="band-card bg-dark p-6 border border-light text-center">
-                    <div class="w-32 h-32 mx-auto mb-4 bg-black"></div>
-                    <h3 class="text-lg uppercase mb-2">CRYPTOPSY</h3>
-                    <p class="text-muted text-sm">Brutal Death Metal / Canada</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl uppercase mb-12 text-center">Bands We Work With</h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      {% for band in bands %}
+      <div class="band-card bg-dark p-6 border border-light text-center">
+        <div class="w-32 h-32 mx-auto mb-4 bg-black"></div>
+        <h3 class="text-lg uppercase mb-2">{{ band.name }}</h3>
+        <p class="text-muted text-sm">{{ band.genre }} / {{ band.country }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
