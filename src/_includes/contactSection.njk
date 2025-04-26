@@ -42,42 +42,68 @@
             </div>
         </div>
     </div>
-<script src="https://www.google.com/recaptcha/api.js?render={{ easyForm.siteKey }}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.querySelector('#contact form');
   if (!form) return;
+  let scriptLoaded = false;
+  let grecaptchaReady = false;
+  let grecaptchaQueue = [];
+
+  // Intersection Observer to load reCAPTCHA script when form is in view
+  const observer = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting && !scriptLoaded) {
+      scriptLoaded = true;
+      const script = document.createElement('script');
+      script.src = 'https://www.google.com/recaptcha/api.js?render={{ easyForm.siteKey }}';
+      script.async = true;
+      script.defer = true;
+      script.onload = function() {
+        grecaptchaReady = true;
+        grecaptchaQueue.forEach(fn => fn());
+        grecaptchaQueue = [];
+      };
+      document.body.appendChild(script);
+      observer.disconnect();
+    }
+  }, { threshold: 0.1 });
+  observer.observe(form);
 
   form.addEventListener('submit', function(event) {
     event.preventDefault();
-
-    grecaptcha.ready(function () {
-      grecaptcha.execute('{{ easyForm.siteKey }}', { action: 'submit' }).then(function (token) {
-        const data = {
-          name: document.getElementById('name').value,
-          email: document.getElementById('email').value,
-          message: document.getElementById('message').value,
-          gCaptchaResponse: token
-        };
-
-        fetch('{{ easyForm.url }}', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'text/plain;charset=utf-8',
-          },
-          body: JSON.stringify(data),
-        })
-        .then(res => res.json())
-        .then(response => {
-          alert('Message sent! Thank you.');
-          form.reset();
-        })
-        .catch(err => {
-          alert('There was an error sending your message.');
-          console.error('Submission error:', err);
+    function handleSubmit() {
+      grecaptcha.ready(function () {
+        grecaptcha.execute('{{ easyForm.siteKey }}', { action: 'submit' }).then(function (token) {
+          const data = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            message: document.getElementById('message').value,
+            gCaptchaResponse: token
+          };
+          fetch('{{ easyForm.url }}', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'text/plain;charset=utf-8',
+            },
+            body: JSON.stringify(data),
+          })
+          .then(res => res.json())
+          .then(response => {
+            alert('Message sent! Thank you.');
+            form.reset();
+          })
+          .catch(err => {
+            alert('There was an error sending your message.');
+            console.error('Submission error:', err);
+          });
         });
       });
-    });
+    }
+    if (window.grecaptcha && grecaptchaReady) {
+      handleSubmit();
+    } else {
+      grecaptchaQueue.push(handleSubmit);
+    }
   });
 });
 </script>
