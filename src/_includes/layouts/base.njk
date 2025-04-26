@@ -23,6 +23,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/css/styles.css">
+
+    <!-- Google reCAPTCHA library-->
+    {# The performance reasons I would usually put this at the end of the body but I guess async defer is going to handle the performance for me #}
+    {# <script src="https://www.google.com/recaptcha/api.js" async defer></script> #}
+    <script src="https://www.google.com/recaptcha/api.js?render={{ easyForm.siteKey }}" async defer></script>
 </head>
 <body>
     {% include "nav.njk" %}

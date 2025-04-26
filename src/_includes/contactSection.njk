@@ -1,45 +1,84 @@
 <section id="contact" class="py-20 bg-dark">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl uppercase mb-12 text-center">Contact</h2>
-            <div class="max-w-2xl mx-auto">
-                <form class="space-y-6">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="name" class="block uppercase text-sm mb-2">Name</label>
-                            <input type="text" id="name" class="w-full bg-black border border-light p-3 focus:outline-none focus:border-white">
-                        </div>
-                        <div>
-                            <label for="email" class="block uppercase text-sm mb-2">Email</label>
-                            <input type="email" id="email" class="w-full bg-black border border-light p-3 focus:outline-none focus:border-white">
-                        </div>
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl uppercase mb-12 text-center">Contact</h2>
+        <div class="max-w-2xl mx-auto">
+            <form class="space-y-6" method="POST" action="{{ easyForm.url }}">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="name" class="block uppercase text-sm mb-2">Name</label>
+                        <input type="text" id="name" class="w-full bg-black border border-light p-3 focus:outline-none focus:border-white">
                     </div>
                     <div>
-                        <label for="subject" class="block uppercase text-sm mb-2">Subject</label>
-                            <input type="text" id="subject" class="w-full bg-black border border-light p-3 focus:outline-none focus:border-white">
+                        <label for="email" class="block uppercase text-sm mb-2">Email</label>
+                        <input type="email" id="email" class="w-full bg-black border border-light p-3 focus:outline-none focus:border-white">
                     </div>
-                    <div>
-                        <label for="message" class="block uppercase text-sm mb-2">Message</label>
-                        <textarea id="message" rows="5" class="w-full bg-black border border-light p-3 focus:outline-none focus:border-white"></textarea>
-                    </div>
-                    <button type="submit" class="bg-white text-black uppercase px-8 py-3 hover:bg-muted transition">Send Message</button>
-                </form>
-                <div class="mt-12 pt-8 border-t border-light">
-                    <h3 class="text-xl uppercase mb-6">Direct Contact</h3>
-                    <div class="space-y-2">
-                        <p class="flex items-center">
-                            <i class="fas fa-envelope mr-4 text-muted"></i>
-                            <span>Granitetombrecords@gmail.com</span>
-                        </p>
-                        <p class="flex items-center">
-                            <i class="fas fa-phone mr-4 text-muted"></i>
-                            <span>+1 666-666-6666</span>
-                        </p>
-                        <p class="flex items-center">
-                            <i class="fas fa-map-marker-alt mr-4 text-muted"></i>
-                            <span>666 Hellraiser Ave, Metalville, USA</span>
-                        </p>
-                    </div>
+                </div>
+                {# <div>
+                    <label for="subject" class="block uppercase text-sm mb-2">Subject</label>
+                    <input type="text" id="subject" class="w-full bg-black border border-light p-3 focus:outline-none focus:border-white">
+                </div> #}
+                <div>
+                    <label for="message" class="block uppercase text-sm mb-2">Message</label>
+                    <textarea id="message" rows="5" class="w-full bg-black border border-light p-3 focus:outline-none focus:border-white"></textarea>
+                </div>
+                <button type="submit" class="bg-white text-black uppercase px-8 py-3 hover:bg-muted transition">Send Message</button>
+            </form>
+            <div class="mt-12 pt-8 border-t border-light">
+                <h3 class="text-xl uppercase mb-6">Direct Contact</h3>
+                <div class="space-y-2">
+                    <p class="flex items-center">
+                        <i class="fas fa-envelope mr-4 text-muted"></i>
+                        <span>Granitetombrecords@gmail.com</span>
+                    </p>
+                    <p class="flex items-center">
+                        <i class="fas fa-phone mr-4 text-muted"></i>
+                        <span>+1 666-666-6666</span>
+                    </p>
+                    <p class="flex items-center">
+                        <i class="fas fa-map-marker-alt mr-4 text-muted"></i>
+                        <span>666 Hellraiser Ave, Metalville, USA</span>
+                    </p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+<script src="https://www.google.com/recaptcha/api.js?render={{ easyForm.siteKey }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.querySelector('#contact form');
+  if (!form) return;
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    grecaptcha.ready(function () {
+      grecaptcha.execute('{{ easyForm.siteKey }}', { action: 'submit' }).then(function (token) {
+        const data = {
+          name: document.getElementById('name').value,
+          email: document.getElementById('email').value,
+          message: document.getElementById('message').value,
+          gCaptchaResponse: token
+        };
+
+        fetch('{{ easyForm.url }}', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8',
+          },
+          body: JSON.stringify(data),
+        })
+        .then(res => res.json())
+        .then(response => {
+          alert('Message sent! Thank you.');
+          form.reset();
+        })
+        .catch(err => {
+          alert('There was an error sending your message.');
+          console.error('Submission error:', err);
+        });
+      });
+    });
+  });
+});
+</script>
+</section>
