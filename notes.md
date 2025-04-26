@@ -1,5 +1,32 @@
 # Notes
 
+## devlog
+
+### 2025-04-25
+I have used the library easy forms to add a working form to the website. Easy forms is located here: https://devapt.com/formeasy#formeasy_github
+
+I added Captcha V3 to the website but it made it slow slow slow 🐌🐌🐢>📄
+
+When throttling to regular 3G all of the images block the loading of the content I believe. This really sucks.
+
+On the throttled 3G it took 36 seconds to load the page.
+
+There is also no feedback on the front end about the form has been submitted or that you know the the message is still in flight.
+
+#### TODO
+
+- Add feedback to the front end about the form has been submitted or that you know the the message is still in flight.
+- Add a loading state to the form.
+- Add a success message to the front end.
+- Add a failure message to the front end.
+
+- Make it so the recaptcha only shows up on with the form.
+
+## FUTURE WORK
+
+It might be a smart move for projects that you really care about to publish a different branch for testing than deployment. So you can see what the site looks like not at the main domain and not interrupt the main traffic.
+
+
 ## example configs
 https://github.com/decaporg/decap-cms/blob/main/dev-test/config.yml
 
@@ -8,7 +35,7 @@ https://github.com/decaporg/decap-cms/blob/main/dev-test/config.yml
 https://github.com/ixartz/Eleventy-Starter-Boilerplate
 
 ### TODO
-Get the boiler pulley going, get the decap bridge, then put the custom site inwell I'm gonna take me a couple weeks
+
 ## Setup
 
 npm install @11ty/eleventy

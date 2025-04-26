@@ -1,6 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 
+const { eleventyImageTransformPlugin } = require("@11ty/eleventy-img");   
+
 module.exports = function (eleventyConfig) {
   // Set directories
   eleventyConfig.addPassthroughCopy("src/css");
@@ -9,8 +11,11 @@ module.exports = function (eleventyConfig) {
   // Add admin directory decap
   eleventyConfig.addPassthroughCopy("src/admin");
 
+  // Add gray-matter
+  //decap
   const matter = require("gray-matter");
 
+  //collections
   eleventyConfig.addCollection("posterImages", function (collectionApi) {
     const dir = "src/imgs/posters";
     return (
@@ -64,6 +69,10 @@ module.exports = function (eleventyConfig) {
         };
       });
   });
+
+
+  //performance
+  eleventyConfig.addPlugin(eleventyImageTransformPlugin);
 
   return {
     dir: {

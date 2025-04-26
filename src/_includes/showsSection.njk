@@ -5,7 +5,7 @@
                 <!-- Photo n -->
                 {% for img in collections.posterImages %}
                 <div class="bg-black  border border-light overflow-hidden">
-                    <img src="{{ img.src }}" alt="{{ img.alt }}" class="w-full h-full object-cover">
+                    <img src="{{ img.src }}" alt="{{ img.alt }}" loading="lazy" class="w-full h-full object-cover">
                 </div>
                 {% endfor %}
             </div>
