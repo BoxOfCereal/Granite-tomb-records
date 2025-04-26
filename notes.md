@@ -240,3 +240,6 @@ module.exports = function(eleventyConfig) {
   ```
 
 This setup is now tested and working!
+
+---
+
