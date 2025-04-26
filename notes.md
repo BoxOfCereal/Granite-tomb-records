@@ -16,6 +16,43 @@ npm install @11ty/eleventy
 ## Server
 npx @11ty/eleventy --serve
 
+## backend
+### formeasy
+https://devapt.com/formeasy#formeasy_github
+
+#### Test
+```powershell
+node .\src\easyFormTest.js
+``` 
+
+#### Notes
+
+```
+Version 1 on Apr 26, 2025, 12:03 AM
+Deployment ID
+AKfycbwrKpdxSYtc4mfE0JvlvRdI6EkCgf5kRpqAkWQ3seE4Ti7cfaJat5Bsu666jVTqvfaq
+
+https://script.google.com/macros/s/AKfycbwrKpdxSYtc4mfE0JvlvRdI6EkCgf5kRpqAkWQ3seE4Ti7cfaJat5Bsu666jVTqvfaq/exec
+```
+
+#### issues
+Launching the apps trip from the Google sheet with multiple accounts can cause a 400 error. The solution seems to beto sign out of all accounts and only use one account :/
+
+https://support.google.com/docs/thread/151882114?hl=en&msgid=152100387
+
+>> **Phil Brosgol**  
+> *Original Poster*  
+> Feb 24, 2022  
+>  
+> Thank you! You pointed me in the right direction. I was able to switch accounts by going directly to scripts.google.com (which loaded my personal account by default) and switch to my work account. This enabled me to access the scripts app, at least.  
+>  
+> However, *I was still not able to access the scripts app from within a spreadsheet*. __The solution that finally worked was to sign out of all accounts in my browser and then sign back in to just my work account__.  
+>  
+> From now on I will use chrome profiles to switch google accounts rather than sign into multiple accounts in a browser session.  
+>  
+> Thanks again!
+
+- Emphasis is mine
 ## Auth
 ### Decap Bridge
 https://github.com/decaporg/decap-cms/discussions/7419#discussioncomment-12630236
