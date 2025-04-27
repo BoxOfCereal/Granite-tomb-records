@@ -36,6 +36,24 @@ https://github.com/ixartz/Eleventy-Starter-Boilerplate
 
 ### TODO
 
+## Nunjucks Includes and Data Context in Eleventy
+
+When using `{% include %}` in Nunjucks (as used by Eleventy), variables from the parent template's context (such as loop variables) are automatically available inside the included template. You do **not** need to "drill props" like in React or Vue. For example, if you are looping over `bands` and including a band card partial, the current `band` is available inside the included template:
+
+```njk
+{% for band in bands %}
+  {% include "bandCard.njk" %}
+{% endfor %}
+```
+
+Inside `bandCard.njk`, you can use `{{ band.name }}`, `{{ band.genre }}`, etc., directly. There is no need to explicitly pass `band` as a prop or argument to the include. This makes updating and sharing partials very easy across your Eleventy project.
+
+If you want to rename the variable or pass a different value, you can use `{% set myBand = band %}` before the include, and then reference `myBand` in the included template.
+
+See also:
+- [Nunjucks: Template Inheritance and Includes](https://mozilla.github.io/nunjucks/templating.html#include)
+- [Eleventy: Nunjucks Templates](https://www.11ty.dev/docs/languages/nunjucks/)
+
 ## Setup
 
 npm install @11ty/eleventy

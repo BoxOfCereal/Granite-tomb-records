@@ -13,13 +13,8 @@
     </div>
     <div id="bands-grid" class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
       {% for band in bands %}
-      <div class="band-card bg-dark p-6 border border-light text-center" data-genre="{{ band.genre | lower }}">
-        <div class="w-32 h-32 mx-auto mb-4 bg-black"></div>
-        <h3 class="text-lg uppercase mb-2">
-          <a href="/bands/{{ band.file | replace('.md', '') }}/" class="text-light hover:underline">{{ band.name }}</a>
-        </h3>
-        <p class="text-muted text-sm">{{ band.genre }} / {{ band.country }}</p>
-      </div>
+      {# {% set band = band %} #}
+      {% include "bandCard.njk" %}
       {% endfor %}
     </div>
     <div class="mt-12 flex justify-center gap-4">
