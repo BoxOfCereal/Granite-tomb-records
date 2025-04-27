@@ -87,6 +87,11 @@ module.exports = function (eleventyConfig) {
     return arr.sort((a, b) => a[prop] - b[prop]);
   });
 
+  eleventyConfig.addNunjucksFilter("slice", function(arr, start, end) {
+    if (!Array.isArray(arr)) return [];
+    return arr.slice(start, end);
+  });
+
   return {
     dir: {
       input: "src",
