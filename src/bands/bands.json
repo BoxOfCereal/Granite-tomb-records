@@ -1,0 +1,4 @@
+{
+  "layout": "band.njk",
+  "permalink": "/bands/{{ page.fileSlug }}/"
+}

@@ -74,6 +74,19 @@ module.exports = function (eleventyConfig) {
   //performance
   eleventyConfig.addPlugin(eleventyImageTransformPlugin);
 
+  //filters
+  eleventyConfig.addFilter("unique", (value) => Array.from(new Set(value)));
+
+  eleventyConfig.addFilter("map", function(arr, prop) {
+    if (!Array.isArray(arr)) return [];
+    return arr.map(item => item[prop]);
+  });
+
+  eleventyConfig.addFilter("sort", function(arr, prop) {
+    if (!Array.isArray(arr)) return [];
+    return arr.sort((a, b) => a[prop] - b[prop]);
+  });
+
   return {
     dir: {
       input: "src",

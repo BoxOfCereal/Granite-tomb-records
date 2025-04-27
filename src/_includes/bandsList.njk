@@ -1,0 +1,61 @@
+---
+pagination:
+  data: collections.bands
+  size: 10
+  alias: bands
+permalink: "/bands/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1 }}/{% endif %}index.html"
+title: "All Bands"
+---
+
+<section class="py-20 bg-black min-h-screen">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl uppercase mb-12 text-center">All Bands</h2>
+    <div class="mb-8 flex flex-wrap gap-4 justify-center">
+      <label for="genre-filter" class="text-light">Filter by Genre:</label>
+      <select id="genre-filter" class="bg-dark text-light border border-light px-4 py-2 rounded">
+        <option value="all">All Genres</option>
+        {% set genres = bands | map(attribute='genre') | unique | sort %}
+        {% for genre in genres %}
+          <option value="{{ genre }}">{{ genre }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div id="bands-grid" class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      {% for band in bands %}
+      <div class="band-card bg-dark p-6 border border-light text-center" data-genre="{{ band.genre | lower }}">
+        <div class="w-32 h-32 mx-auto mb-4 bg-black"></div>
+        <h3 class="text-lg uppercase mb-2">
+          <a href="/bands/{{ band.file | replace('.md', '') }}/" class="text-light hover:underline">{{ band.name }}</a>
+        </h3>
+        <p class="text-muted text-sm">{{ band.genre }} / {{ band.country }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="mt-12 flex justify-center gap-4">
+      {% if pagination.href.previous %}
+        <a href="{{ pagination.href.previous }}" class="px-4 py-2 bg-light text-black rounded font-bold hover:bg-white transition">Previous</a>
+      {% endif %}
+      <span class="text-light">Page {{ pagination.pageNumber + 1 }} of {{ pagination.pages.length }}</span>
+      {% if pagination.href.next %}
+        <a href="{{ pagination.href.next }}" class="px-4 py-2 bg-light text-black rounded font-bold hover:bg-white transition">Next</a>
+      {% endif %}
+    </div>
+  </div>
+  <script>
+    // Extensible filter logic
+    document.addEventListener('DOMContentLoaded', function() {
+      const genreFilter = document.getElementById('genre-filter');
+      const bandCards = document.querySelectorAll('.band-card');
+      genreFilter.addEventListener('change', function() {
+        const selected = this.value.toLowerCase();
+        bandCards.forEach(card => {
+          if (selected === 'all' || card.dataset.genre === selected) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</section>
