@@ -1,6 +1,10 @@
 ---
+pagination:
+  data: collections.bands
+  size: 10
+  alias: bands
+permalink: "/bands/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1 }}/{% endif %}index.html"
 title: "All Bands"
-permalink: "/bands/index.html"
 layout: "layouts/base.njk"
 ---
 
