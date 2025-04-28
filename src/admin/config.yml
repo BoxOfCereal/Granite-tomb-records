@@ -59,6 +59,7 @@ collections:
       - { label: "Genre", name: "genre", widget: "string" }
       - { label: "Country", name: "country", widget: "string" }
       - { label: "Image", name: "image", widget: "image" }
+      - { label: "About", name: "about", widget: "text", required: false }
       - label: "Social"
         name: "social"
         widget: "object"
@@ -67,6 +68,11 @@ collections:
           - { label: "Instagram", name: "instagram", widget: "string", required: false }
           - { label: "Facebook", name: "facebook", widget: "string", required: false }
           - { label: "Twitter", name: "twitter", widget: "string", required: false }
+          - { label: "TikTok", name: "tiktok", widget: "string", required: false }
+          - { label: "Bluesky", name: "bluesky", widget: "string", required: false }
+          - { label: "Bandcamp", name: "bandcamp", widget: "string", required: false }
+
+
 
   - name: "videos"
     label: "Videos"
