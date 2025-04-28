@@ -1,25 +1,25 @@
 <section class="py-8 bg-black">
   <div class="container mx-auto px-4">
     {# <h2 class="text-3xl uppercase mb-12 text-center text-white">Video Player</h2> #}
-    <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mx-auto px-20">
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mx-auto md:px-20">
       <!-- Video Player: always first -->
       <div class="order-1 md:order-1 md:col-span-4">
-        <div class="aspect-video w-3/4 bg-black border border-light flex items-center justify-center relative">
-          <iframe
-            id="main-video"
-            width="100%"
-            height="100%"
-            src="https://www.youtube.com/embed/{{ collections.videos[0].id }}"
-            title="{{ collections.videos[0].title }}"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            class="rounded w-full h-56 md:h-full"
-          ></iframe>
+        <div class="w-full md:w-3/4 mx-auto">
+          <div class="aspect-video bg-black border border-light flex items-center justify-center relative">
+            <iframe
+              id="main-video"
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/{{ collections.videos[0].id }}"
+              title="{{ collections.videos[0].title }}"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              class="rounded w-full h-56 md:h-full"
+            ></iframe>
+          </div>
+          <p class="mt-2 text-white text-lg ">{{ videos[0].caption }}</p>
         </div>
-        {% if videos[0].caption %}
-        <p class="mt-2 text-white text-lg">{{ videos[0].caption }}</p>
-        {% endif %}
       </div>
 
       <!-- Playlist: below video on mobile, right on desktop -->
