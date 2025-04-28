@@ -1,12 +1,16 @@
 {# bandCard.njk - Band Card Partial #}
 <a href="/bands/{{ band.file | replace('.md','') }}/" class="block hover:scale-105 transition-transform">
-  <div class="band-card bg-dark p-6 border border-light text-center">
-    {% if band.image %}
-      <img src="{{ band.image }}" alt="Photo of {{ band.name }}" class="w-32 h-32 mx-auto mb-4 object-cover rounded-full border-2 border-light bg-black" loading="lazy" />
-    {% else %}
-      <div class="w-32 h-32 mx-auto mb-4 bg-black"></div>
-    {% endif %}
-    <h3 class="text-lg uppercase mb-2">{{ band.name }}</h3>
-    <p class="text-muted text-sm">{{ band.genre }} / {{ band.country }}</p>
+  <div class="band-card bg-dark p-6 border border-light text-center h-72 flex flex-col">
+    <div class="flex-shrink-0">
+      {% if band.image %}
+        <img src="{{ band.image }}" alt="Photo of {{ band.name }}" class="w-32 h-32 mx-auto mb-4 object-cover border-2 border-light bg-black" loading="lazy" />
+      {% else %}
+        <div class="w-32 h-32 mx-auto mb-4 bg-black"></div>
+      {% endif %}
+    </div>
+    <div class="flex-1 flex flex-col justify-start">
+      <h3 class="text-lg uppercase mb-2 break-words">{{ band.name }}</h3>
+      <p class="text-muted text-sm mt-auto">{{ band.genre }} / {{ band.country }}</p>
+    </div>
   </div>
 </a>

@@ -1,16 +1,21 @@
 <section class="py-20 bg-black min-h-screen">
   <div class="container mx-auto px-4">
     <h2 class="text-3xl uppercase mb-12 text-center">All Bands</h2>
-    <div class="mb-8 flex flex-wrap gap-4 justify-center">
+        {# <pre>{{ bands | map(attribute='name') | dump }}</pre>
+        <pre>{{ collections.bands | dump }}</pre> #}
+
+    {# <div class="mb-8 flex flex-wrap gap-4 justify-center">
       <label for="genre-filter" class="text-light">Filter by Genre:</label>
       <select id="genre-filter" class="bg-dark text-light border border-light px-4 py-2 rounded">
         <option value="all">All Genres</option>
-        {% set genres = bands | map(attribute='genre') | unique | sort %}
+
+        {% set genres = collections.bands | map(attribute='genre') | unique | sort %}
         {% for genre in genres %}
           <option value="{{ genre }}">{{ genre }}</option>
         {% endfor %}
       </select>
-    </div>
+    </div> #}
+
     <div id="bands-grid" class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
       {% for band in bands %}
       {# {% set band = band %} #}

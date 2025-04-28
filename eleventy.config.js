@@ -77,9 +77,13 @@ module.exports = function (eleventyConfig) {
   //filters
   eleventyConfig.addFilter("unique", (value) => Array.from(new Set(value)));
 
-  eleventyConfig.addFilter("map", function(arr, prop) {
+  eleventyConfig.addFilter("map", function(arr, {attribute}) {
     if (!Array.isArray(arr)) return [];
-    return arr.map(item => item[prop]);
+    console.log(attribute);
+    arr.map(item =>{
+      console.log(item[attribute]);
+    })
+    return arr.map(item => item[attribute]);
   });
 
   eleventyConfig.addFilter("sort", function(arr, prop) {
