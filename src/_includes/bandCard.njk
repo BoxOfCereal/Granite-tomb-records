@@ -1,12 +1,12 @@
 {# bandCard.njk - Band Card Partial #}
 <a href="/bands/{{ band.file | replace('.md','') }}/" class="block hover:scale-105 transition-transform">
-  <div class="band-card bg-dark border border-light text-center h-80 flex flex-col p-0">
+  <div class="band-card bg-dark border rounded-sm border-light text-center h-80 flex flex-col p-0">
     <!-- Top: Image section -->
-    <div class="bg-black flex-shrink-0 w-full">
+    <div class="bg-black flex-shrink-0 w-full rounded-t-sm">
       {% if band.image %}
-        <img src="{{ band.image }}" alt="Photo of {{ band.name }}" class="w-full h-28 object-cover" loading="lazy" />
+        <img src="{{ band.image }}" alt="Photo of {{ band.name }}" class="w-full h-28 object-cover rounded-t-sm" loading="lazy" />
       {% else %}
-        <div class="w-full h-28 bg-black"></div>
+        <div class="w-full h-28 bg-black rounded-t-sm"></div>
       {% endif %}
     </div>
     <!-- Middle: Name and blurb -->
@@ -17,7 +17,7 @@
       {% endif %}
     </div>
     <!-- Bottom: Genre/Country accent -->
-    <div class="bg-dark text-muted px-4 py-2 w-full">
+    <div class="bg-dark text-muted px-4 py-2 w-full rounded-b-sm">
       <p class="text-xs font-semibold m-0">{{ band.genre }}{% if band.country %} / {{ band.country }}{% endif %}</p>
     </div>
   </div>
