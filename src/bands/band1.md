@@ -3,7 +3,7 @@ name: THICC mathematical textbook
 genre: Math Rock
 country: USA
 image: /imgs/bands/band1.jpg
-about: ""
+about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 social:
   website: https://theband.com
   instagram: https://instagram.com/theband
