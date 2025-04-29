@@ -74,37 +74,17 @@ collections:
           - { label: "Bandcamp", name: "bandcamp", widget: "string", required: false }
 
   - name: "videos"
-    label: "Videos"
+    label: "YouTube Videos"
     folder: "src/videos"
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "YouTube ID", name: "id", widget: "string" }
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Caption", name: "caption", widget: "string" }
-
-  # - name: "youtube_playlists"
-  #   label: "YouTube Playlists"
-  #   folder: "src/playlists"
-  #   create: true
-  #   slug: "{{slug}}"
-  #   fields:
-  #     - { label: "Playlist URL", name: "url", widget: "string" }
-
-  - label: "YouTube Playlists And Videos"
-    name: "youtube_playlists_videos"
-    files:
-      - label: "Playlist URL"
-        name: "playlist"
-        file: "src/_data/youtube_playlists.json"
-        widget: "list"
-        create: true
-        fields:
-          - {label: Playlist URL, name: playlist_url, widget: string}
-      - label: "Video URL"
-        name: "video"
-        create: true
-        file: "src/_data/youtube_videos.json"
-        widget: "list"
-        fields:
-          - {label: Video URL, name: video_url, widget: string}
+      - { label: "YouTube Video URL", name: "url", widget: "string" }
+      
+  - name: "youtube_playlists"
+    label: "YouTube Playlists"
+    folder: "src/playlists"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Playlist URL", name: "url", widget: "string" }
