@@ -98,10 +98,12 @@ collections:
         name: "playlist"
         file: "src/_data/youtube_playlists.json"
         widget: "list"
+        create: true
         fields:
           - {label: Playlist URL, name: playlist_url, widget: string}
       - label: "Video URL"
         name: "video"
+        create: true
         file: "src/_data/youtube_videos.json"
         widget: "list"
         fields:
