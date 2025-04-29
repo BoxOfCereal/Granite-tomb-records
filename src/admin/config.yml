@@ -85,6 +85,9 @@ collections:
 
   - name: "youtube_playlists"
     label: "YouTube Playlists"
+    folder: "src/playlists"
+    create: true
+    slug: "{{slug}}"
     widget: "list"
     field:
       label: "Playlist URL"
