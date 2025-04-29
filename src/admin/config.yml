@@ -91,14 +91,18 @@ collections:
   #   fields:
   #     - { label: "Playlist URL", name: "url", widget: "string" }
 
-  - name: "youtube_playlists"
-    label: "YouTube Playlists"
-    file: "src/_data/youtube_playlists.json"   # or .yml if you prefer YAML
-    fields:
-      - label: "Playlists"
-        name: "playlists"
+  - label: "YouTube Playlists And Videos"
+    name: "youtube_playlists_videos"
+    files:
+      - label: "Playlist URL"
+        name: "playlist"
+        file: "src/_data/youtube_playlists.json"
         widget: "list"
-        field:
-          label: "Playlist URL"
-          name: "url"
-          widget: "string"
+        fields:
+          - {label: Playlist URL, name: playlist_url, widget: string}
+      - label: "Video URL"
+        name: "video"
+        file: "src/_data/youtube_videos.json"
+        widget: "list"
+        fields:
+          - {label: Video URL, name: video_url, widget: string}
