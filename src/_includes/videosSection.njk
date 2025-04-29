@@ -1,35 +1,41 @@
+{% set minVideoWidth = 800 %}
 <section class="py-8 bg-black">
   <div class="container mx-auto px-4">
     {# <h2 class="text-3xl uppercase mb-12 text-center text-white">Video Player</h2> #}
-    <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mx-auto md:px-20">
+    <div class="flex flex-col md:flex-row gap-8 mx-auto md:px-20">
       
       <!-- Video Player: always first -->
-      <div class="order-1 md:order-1 md:col-span-4 flex flex-col justify-center">
-        <div class="w-full md:w-11/12 mx-auto">
+      <div class="flex-none w-full md:w-[{{ minVideoWidth }}px] flex flex-col justify-center">
+        <div class="w-full md:w-[{{ minVideoWidth }}px] mx-auto">
           <div class="aspect-video bg-black border border-light flex items-center justify-center relative">
             <iframe
               id="main-video"
               width="100%"
               height="100%"
-              src="https://www.youtube.com/embed/{{ collections.videos[0].id }}"
-              title="{{ collections.videos[0].title }}"
+              src="https://www.youtube.com/embed/{{ videos[0].id }}"
+              title="{{ videos[0].title }}"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
               class="rounded w-full h-56 md:h-full"
             ></iframe>
           </div>
-          <p class="mt-2 text-white text-lg ">{{ videos[0].caption }}</p>
+          <p id="video-title" class="mt-2 text-white text-2xl uppercase ">{{ videos[0].title }}</p>
+          <p id="video-date" class="mt-2 text-white text-lg ">{{ videos[0].date }}</p>
+          <p id="video-description" class="mt-2 text-white text-lg ">{{ videos[0].description }}</p>
         </div>
       </div>
 
       <!-- Playlist: below video on mobile, right on desktop -->
-      <div class="order-2 md:order-2 md:col-span-1 space-y-4 mt-6 md:mt-0 md:max-h-[32rem] md:overflow-y-auto">
+      <div class="flex-grow space-y-4 mt-6 md:mt-0 md:max-h-[32rem] md:overflow-y-auto">
         {% for video in videos %}
         <button
           class="flex w-full items-center gap-3 text-left bg-gray-900 hover:bg-gray-800 p-2 rounded-lg shadow transition group"
           style="min-height: 4.5rem;"
-          onclick="changeVideo('{{ video.id }}', '{{ video.caption | escape }}')"
+          onclick="changeVideo('{{ video.id }}', 
+          '{{ video.title | escape }}',
+          '{{ video.date | escape }}', 
+          '{{ video.description | escape }}')"
         >
           <img src="https://img.youtube.com/vi/{{ video.id }}/hqdefault.jpg" alt="{{ video.title }} thumbnail" class="w-20 h-12 object-cover rounded-md border border-gray-700 group-hover:border-white transition" loading="lazy">
           <div class="flex flex-col flex-1 min-w-0">
@@ -46,8 +52,11 @@
 </section>
 
 <script>
-  function changeVideo(videoId, caption) {
+  function changeVideo(videoId, title, date, description) {
     const iframe = document.getElementById('main-video');
     iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    document.getElementById('video-title').textContent = title;
+    document.getElementById('video-date').textContent = date;
+    document.getElementById('video-description').textContent = description;
   }
 </script>

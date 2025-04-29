@@ -1,6 +1,9 @@
+const YouTube = require("simple-youtube-api");
 const fs = require("fs");
 const path = require("path");
 
+// helpers
+//
 // Helper to load API key from .secrets
 function getYouTubeApiKey() {
   // First, check environment variable (for cloud)
@@ -36,8 +39,7 @@ function getPlaylistId(url) {
   }
 }
 
-const YouTube = require("simple-youtube-api");
-
+// Helper to fetch playlist items
 async function fetchPlaylistItems(playlistId, apiKey) {
   console.log(`[videos.js] Fetching playlist: ${playlistId}`);
   const youtube = new YouTube(apiKey);
@@ -81,6 +83,8 @@ async function fetchPlaylistItems(playlistId, apiKey) {
   return mapped;
 }
 
+//https://stackoverflow.com/questions/5311334/what-is-the-purpose-of-node-js-module-exports-and-how-do-you-use-it
+//module.exports is the object that's actually returned as the result of a require call.
 module.exports = async function () {
   console.log("[videos.js] Starting YouTube playlist fetcher...");
   let apiKey;
@@ -125,10 +129,8 @@ module.exports = async function () {
     `[videos.js] Loaded ${playlistUrls.length} playlist URLs from files`
   );
 
-  // If your playlist URLs are in a JSON or Markdown file, require or read them here
-  // const playlistUrls = require('../videos/playlists.json'); // Example
-
   let allVideos = [];
+  
   for (const url of playlistUrls) {
     console.log(`[videos.js] Processing playlist URL: ${url}`);
     const playlistId = getPlaylistId(url);
@@ -144,5 +146,7 @@ module.exports = async function () {
   } else {
     console.log('[videos.js] No videos found');
   }
+
+  // return the videos
   return allVideos;
 };
