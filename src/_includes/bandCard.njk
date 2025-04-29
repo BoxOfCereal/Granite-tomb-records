@@ -4,7 +4,7 @@
     <!-- Top: Image section -->
     <div class="bg-black flex-shrink-0 w-full rounded-t-sm">
       {% if band.image %}
-        <img src="{{ band.image }}" alt="Photo of {{ band.name }}" class="w-full h-28 object-cover rounded-t-sm" loading="lazy" />
+        <img src="{{ band.image }}" alt="Photo of {{ band.name }}" class="w-full h-28 object-none rounded-t-sm" loading="lazy" />
       {% else %}
         <div class="w-full h-28 bg-black rounded-t-sm"></div>
       {% endif %}
