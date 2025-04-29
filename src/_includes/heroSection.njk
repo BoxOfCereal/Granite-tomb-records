@@ -56,5 +56,42 @@
         </svg>
         <h1 class="text-4xl uppercase mb-6 pt-10">Granite Tomb Records</h1>
         {# <p class="text-lg max-w-2xl mx-auto text-muted">The home of the most brutal and uncompromising bands in the scene since 20XX</p> #}
+        <!-- Chevron Down Indicator -->
+        {# Only show the Chevron if it's on the index page #}
+        {% if page.url == "/" %}
+            <div class="flex justify-center mt-4">
+                <span id="chevron-bounce">
+                    <svg class="w-8 h-8 text-light" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </span>
+                <style>
+                @keyframes subtle-bounce {
+                  0%, 100% { transform: translateY(0);}
+                  20% { transform: translateY(-12px);}
+                  40% { transform: translateY(0);}
+                }
+                .bounce-once {
+                {# change the animation duration to 1.5s #}
+                  animation: subtle-bounce 2.5s cubic-bezier(.36,.07,.19,.97) both;
+                }
+                </style>
+                <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                  const chevron = document.getElementById('chevron-bounce');
+                  if (!chevron) return;
+                  function triggerBounce() {
+                    chevron.classList.add('bounce-once');
+                    chevron.addEventListener('animationend', function handler() {
+                      chevron.classList.remove('bounce-once');
+                      chevron.removeEventListener('animationend', handler);
+                    });
+                  }
+                  triggerBounce(); // Initial bounce on load
+                  setInterval(triggerBounce, 4000); // Bounce every 4 seconds
+                });
+                </script>
+            </div>
+        {% endif %}
     </div>
 </section>
