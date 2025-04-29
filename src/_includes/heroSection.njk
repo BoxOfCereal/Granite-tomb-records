@@ -87,8 +87,14 @@
                       chevron.removeEventListener('animationend', handler);
                     });
                   }
-                  triggerBounce(); // Initial bounce on load
-                  setInterval(triggerBounce, 4000); // Bounce every 4 seconds
+                  // Start the bounce interval
+                  const bounceInterval = setInterval(triggerBounce, 5000);
+                  // Stop the bounce interval after the user scrolls
+                  function stopBounceOnScroll() {
+                    clearInterval(bounceInterval);
+                    window.removeEventListener('scroll', stopBounceOnScroll);
+                  }
+                  window.addEventListener('scroll', stopBounceOnScroll);
                 });
                 </script>
             </div>
