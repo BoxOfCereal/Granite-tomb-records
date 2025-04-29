@@ -83,8 +83,8 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Caption", name: "caption", widget: "string" }
 
-  - label: "YouTube Playlists"
-    name: "youtube_playlists"
+  - name: "youtube_playlists"
+    label: "YouTube Playlists"
     widget: "list"
     field:
       label: "Playlist URL"
