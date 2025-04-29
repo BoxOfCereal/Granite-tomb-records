@@ -2,6 +2,10 @@
 
 ## devlog
 
+### 2025-04-29
+#### YouTube API Quota
+https://console.cloud.google.com/apis/api/youtube.googleapis.com/quotas?authuser=3&project=granite-tomb-records&supportedpurview=project
+
 ### 2025-04-25
 I have used the library easy forms to add a working form to the website. Easy forms is located here: https://devapt.com/formeasy#formeasy_github
 
