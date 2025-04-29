@@ -5,10 +5,40 @@
             class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
             <!-- Photo n -->
             {% for img in collections.posterImages %}
-                <div class="bg-black  border border-light overflow-hidden">
-                    <img src="{{ img.src }}" srcset="{{ img.srcset }}" sizes="(max-width: 640px) 200px, (max-width: 1024px) 400px, 1080px" alt="{{ img.alt }}" loading="lazy" class="w-full h-full object-cover"/>
+                <div class="relative bg-black border border-light overflow-hidden">
+                    <!-- Shimmer overlay -->
+                    <div class="shimmer-overlay absolute inset-0 z-10 pointer-events-none"></div><img src="{{ img.src }}" srcset="{{ img.srcset }}" sizes="(max-width: 640px) 200px, (max-width: 1024px) 400px, 1080px" alt="{{ img.alt }}" loading="lazy" class="w-full h-full object-cover shimmer-img" />
                 </div>
             {% endfor %}
         </div>
     </div>
 </section>
+
+<style>
+.shimmer-overlay {
+  background: linear-gradient(90deg, rgba(30,30,30,0.8) 0%, rgba(60,60,60,0.2) 50%, rgba(30,30,30,0.8) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2.25s infinite linear;
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll('.shimmer-img').forEach(function(img) {
+    function hideShimmer() {
+      const shimmer = img.closest('.relative').querySelector('.shimmer-overlay');
+      if (shimmer) shimmer.style.display = 'none';
+    }
+    if (img.complete && img.naturalHeight !== 0) {
+      hideShimmer();
+    } else {
+      img.addEventListener('load', hideShimmer, { once: true });
+      img.addEventListener('error', hideShimmer, { once: true });
+    }
+  });
+});
+</script>
