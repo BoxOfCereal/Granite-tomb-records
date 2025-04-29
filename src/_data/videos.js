@@ -3,11 +3,18 @@ const path = require('path');
 
 // Helper to load API key from .secrets
 function getYouTubeApiKey() {
+  // First, check environment variable (for cloud)
+  if (process.env.YOUTUBE_API_KEY) {
+    return process.env.YOUTUBE_API_KEY;
+  }
+  // Fallback to .secrets file (for local dev)
   const secretsPath = path.resolve(__dirname, '../../.secrets');
-  const secrets = fs.readFileSync(secretsPath, 'utf-8');
-  const match = secrets.match(/YOUTUBE_API_KEY\s*=\s*(.*)/);
-  if (!match) throw new Error('YOUTUBE_API_KEY not found in .secrets');
-  return match[1].trim();
+  if (fs.existsSync(secretsPath)) {
+    const secrets = fs.readFileSync(secretsPath, 'utf-8');
+    const match = secrets.match(/YOUTUBE_API_KEY\s*=\s*(.*)/);
+    if (match) return match[1].trim();
+  }
+  throw new Error('YOUTUBE_API_KEY not found in environment or .secrets file');
 }
 
 // Helper to extract playlist ID from URL
