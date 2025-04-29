@@ -89,7 +89,5 @@ collections:
     create: true
     slug: "{{slug}}"
     widget: "list"
-    field:
-      label: "Playlist URL"
-      name: "url"
-      widget: "string"
+    fields:
+      - { label: "Playlist URL", name: "url", widget: "string" }
