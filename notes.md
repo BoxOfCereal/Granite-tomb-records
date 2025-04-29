@@ -1,6 +1,10 @@
 # Notes
+## Libraries
+https://tjrgg.github.io/simple-youtube-api/master/
+
 
 ## devlog
+
 
 ### 2025-04-29
 #### YouTube API Quota
