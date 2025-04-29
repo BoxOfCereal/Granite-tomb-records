@@ -88,6 +88,5 @@ collections:
     folder: "src/playlists"
     create: true
     slug: "{{slug}}"
-    widget: "list"
     fields:
       - { label: "Playlist URL", name: "url", widget: "string" }
