@@ -8,13 +8,17 @@
       {% include "bandCard.njk" %}
       {% endfor %}
     </div>
-    <div class="mt-12 flex justify-center gap-4">
+    <div class="mt-12 flex justify-center items-center gap-4">
       {% if pagination.href.previous %}
-        <a href="{{ pagination.href.previous }}" class="px-4 py-2 bg-light text-black rounded font-bold hover:bg-white transition">Previous</a>
+        <a href="{{ pagination.href.previous }}" class="px-4 py-2 bg-white text-black rounded font-bold hover:bg-gray-200 transition shadow">Previous</a>
+      {% else %}
+        <span class="px-4 py-2 rounded font-bold opacity-0 pointer-events-none select-none">Previous</span>
       {% endif %}
       <span class="text-light">Page {{ pagination.pageNumber + 1 }} of {{ pagination.pages.length }}</span>
       {% if pagination.href.next %}
-        <a href="{{ pagination.href.next }}" class="px-4 py-2 bg-light text-black rounded font-bold hover:bg-white transition">Next</a>
+        <a href="{{ pagination.href.next }}" class="px-4 py-2 bg-white text-black rounded font-bold hover:bg-gray-200 transition shadow">Next</a>
+      {% else %}
+        <span class="px-4 py-2 rounded font-bold opacity-0 pointer-events-none select-none">Next</span>
       {% endif %}
     </div>
   </div>
