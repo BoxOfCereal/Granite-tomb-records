@@ -90,3 +90,15 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: "Playlist URL", name: "url", widget: "string" }
+
+  - name: "youtube_playlists"
+    label: "YouTube Playlists"
+    file: "src/_data/youtube_playlists.json"   # or .yml if you prefer YAML
+    fields:
+      - label: "Playlists"
+        name: "playlists"
+        widget: "list"
+        field:
+          label: "Playlist URL"
+          name: "url"
+          widget: "string"
