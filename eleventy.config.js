@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const { eleventyImageTransformPlugin } = require("@11ty/eleventy-img");   
+const { eleventyImageTransformPlugin } = require("@11ty/eleventy-img");
 
 module.exports = function (eleventyConfig) {
   // Set directories
@@ -70,31 +70,50 @@ module.exports = function (eleventyConfig) {
       });
   });
 
-
   //performance
-  eleventyConfig.addPlugin(eleventyImageTransformPlugin);
+
+  eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
+    // output image formats
+    formats: ["avif", "svg", "webp", "jpeg"],
+
+    // output image widths
+    widths: ["auto", 200, 400],
+
+    //I think this is supposed toskip over SVG's however my mainhero element is in SVG
+    svgShortCircuit: true,
+
+    // optional, attributes assigned on <img> nodes override these values
+    htmlOptions: {
+      imgAttributes: {
+        loading: "lazy",
+        decoding: "async",
+      },
+      pictureAttributes: {},
+    },
+  });
 
   //filters
   eleventyConfig.addFilter("unique", (value) => Array.from(new Set(value)));
 
-  eleventyConfig.addFilter("map", function(arr, {attribute}) {
+  eleventyConfig.addFilter("map", function (arr, { attribute }) {
     if (!Array.isArray(arr)) return [];
     console.log(attribute);
-    arr.map(item =>{
+    arr.map((item) => {
       console.log(item[attribute]);
-    })
-    return arr.map(item => item[attribute]);
+    });
+    return arr.map((item) => item[attribute]);
   });
 
-  eleventyConfig.addFilter("sort", function(arr, prop) {
+  eleventyConfig.addFilter("sort", function (arr, prop) {
     if (!Array.isArray(arr)) return [];
     return arr.sort((a, b) => a[prop] - b[prop]);
   });
 
-  eleventyConfig.addNunjucksFilter("slice", function(arr, start, end) {
+  eleventyConfig.addNunjucksFilter("slice", function (arr, start, end) {
     if (!Array.isArray(arr)) return [];
     return arr.slice(start, end);
   });
+
 
   return {
     dir: {
