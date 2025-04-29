@@ -1,16 +1,34 @@
+{% set profileImageWidth = 24 %}
+{% set profileImageHeight = 24 %}
 {# bandCard.njk - Band Card Partial #}
 <a href="/bands/{{ band.file | replace('.md','') }}/" class="block hover:scale-105 transition-transform">
-  <div class="band-card bg-dark border rounded-sm border-light text-center h-80 flex flex-col p-0">
+  <div
+    class="band-card bg-dark border rounded-sm border-light text-center h-80 flex flex-col p-0">
     <!-- Top: Image section -->
-    <div class="bg-black flex-shrink-0 w-full rounded-t-sm">
-      {% if band.image %}
-        <img src="{{ band.image }}" alt="Photo of {{ band.name }}" class="w-full h-28 object-none rounded-t-sm" loading="lazy" />
+    <div class="bg-black flex-shrink-0 w-full rounded-t-sm relative">
+      {% if band.banner %}
+        <img src="{{ band.banner }}" alt="Photo of {{ band.name }}" class="w-full h-23 object-none rounded-t-sm" loading="lazy"/>
       {% else %}
         <div class="w-full h-28 bg-black rounded-t-sm"></div>
       {% endif %}
+      <!-- Profile circle: absolute, centered, overlaps below -->
+      <div class="absolute left-1/2 -bottom-{{ profileImageHeight / 2 }} transform -translate-x-1/2 z-20">
+        <div class="w-{{ profileImageWidth }} h-{{ profileImageHeight }} rounded-full border-4 border-dark bg-gray-800 overflow-hidden
+            flex items-center justify-center">
+          {% if band.profileImage %}
+            <img src="{{ band.profileImage }}" alt="Profile of {{ band.name }}" class="w-full h-full object-cover rounded-full" loading="lazy"/>
+          {% elif band.image %}
+            <img src="{{ band.image }}" alt="Profile of {{ band.name }}" class="w-full h-full object-cover rounded-full opacity-80" loading="lazy"/>
+          {% else %}
+            <span class="text-white text-xl">&#9787;</span>
+          {% endif %}
+        </div>
+      </div>
     </div>
+    <!-- Spacer for profile circle overlap -->
+    <div class="h-8"></div>
     <!-- Middle: Name and blurb -->
-    <div class="flex-1 flex flex-col justify-center bg-dark px-4 py-2">
+    <div class="flex-1 flex flex-col justify-center bg-dark px-4 py-2 pt-10">
       <h3 class="text-lg uppercase mb-1 break-words text-white">{{ band.name }}</h3>
       {% if band.description %}
         <p class="text-xs text-muted mb-0 line-clamp-2">{{ band.description }}</p>
@@ -18,7 +36,11 @@
     </div>
     <!-- Bottom: Genre/Country accent -->
     <div class="bg-dark text-muted px-4 py-2 w-full rounded-b-sm">
-      <p class="text-xs font-semibold m-0">{{ band.genre }}{% if band.country %} / {{ band.country }}{% endif %}</p>
+      <p class="text-xs font-semibold m-0">{{ band.genre }}
+        {% if band.country %}
+          / {{ band.country }}
+        {% endif %}
+      </p>
     </div>
   </div>
 </a>

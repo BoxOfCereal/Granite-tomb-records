@@ -5,8 +5,8 @@ layout: "layouts/base.njk"
 <section class="py-12 bg-black min-h-screen">
   <div class="container mx-auto px-4 max-w-2xl">
     <div class="bg-dark p-8 border border-light rounded-sm shadow-lg text-center">
-      {% if image %}
-        <img src="{{ image }}" alt="Photo of {{ name }}" class="w-48 h-48 mx-auto mb-6 object-cover rounded-full border-4 border-light" />
+      {% if profileImage %}
+        <img src="{{ profileImage }}" alt="Photo of {{ name }}" class="w-48 h-48 mx-auto mb-6 object-cover rounded-full border-4 border-light" />
       {% endif %}
       <h1 class="text-3xl uppercase mb-2 text-light">{{ name }}</h1>
       <p class="text-muted mb-4">{{ genre }}{% if country %} / {{ country }}{% endif %}</p>

@@ -58,7 +58,8 @@ collections:
       - { label: "Band Name", name: "name", widget: "string" }
       - { label: "Genre", name: "genre", widget: "string" }
       - { label: "Country", name: "country", widget: "string" }
-      - { label: "Image", name: "image", widget: "image" }
+      - { label: "Banner", name: "banner", widget: "image" }
+      - { label: "Profile Image", name: "profileImage", widget: "image" }
       - { label: "About", name: "about", widget: "text", required: false }
       - label: "Social"
         name: "social"
