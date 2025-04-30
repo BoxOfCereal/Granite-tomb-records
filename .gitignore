@@ -5,3 +5,12 @@ _site
 .secrets.example
 .env
 .env.example
+.env.development
+.env.production
+.env.test
+.env.staging
+.env.production
+.cache
+.cache/
+.cache/*
+.cache/**

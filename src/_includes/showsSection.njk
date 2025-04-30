@@ -8,9 +8,9 @@
             <!-- Photo n -->
             {# {{collections.shows|dump}} #}
             {% for show in collections.shows %}
-                <a href="{{ show.url }}" class="relative bg-black border border-light overflow-hidden group">
-                    <div class="absolute top-4 left-4 bg-black/80 text-white px-3 py-1 rounded">
-                        <span class="text-sm">{{ show.date | date("MMMM D, YYYY") }}</span>
+                <a href="{{ show.url }}" class="relative bg-black overflow-hidden group flex flex-col">
+                    <div class="p-4">
+                        <span class="text-white text-md">{{ show.date | date("MMMM D, YYYY") }}</span>
                     </div>
                     <img src="{{ show.poster }}" srcset="{{ show.poster }}" 
                          sizes="(max-width: 640px) 200px, (max-width: 1024px) 400px, 1080px" 
