@@ -25,18 +25,19 @@ media_folder: src/imgs
 public_folder: /imgs
 
 collections:
-  - name: "posters"
-    label: "Poster Images"
-    folder: "src/imgs/posters"
+  - name: "shows"
+    label: "Shows"
+    folder: "src/shows"
     create: true
     slug: "{{slug}}"
-    sortable_fields: ['order', 'title', 'date']
+    sortable_fields: ['title', 'date']
     fields:
       - { label: "Title", name: "title", widget: "string", required: false }
-      - { label: "Order", name: "order", widget: "number", required: false }
-      - { label: "Poster Image", name: "image", widget: "image" }
+      - { label: "Date", name: "date", widget: "date", required: false }
+      - { label: "Poster", name: "poster", widget: "image" }
       - { label: "Description", name: "description", widget: "text", required: false }
-
+      - { label: "Venue", name: "venue", widget: "string", required: false }
+      - { label: "Address", name: "address", widget: "string", required: false }
   - name: "live_photos"
     label: "Live Photos"
     folder: "src/imgs/live"

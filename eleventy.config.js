@@ -15,28 +15,38 @@ module.exports = function (eleventyConfig) {
   //decap
   const matter = require("gray-matter");
 
-  //collections
-  eleventyConfig.addCollection("posterImages", function (collectionApi) {
-    const dir = "src/imgs/posters";
-    return (
-      fs
-        .readdirSync(dir)
-        .filter((file) => file.endsWith(".md"))
-        .map((file) => {
-          const fullPath = path.join(dir, file);
-          const fileContents = fs.readFileSync(fullPath, "utf8");
-          const { data } = matter(fileContents);
-          return {
-            ...data,
-            // Optionally, add a computed src for convenience
-            src: data.image,
-            file: file,
-          };
-        })
-        // Optional: sort by order field if present
-        .sort((a, b) => (a.order || 0) - (b.order || 0))
-    );
+  // Add date filter
+  eleventyConfig.addFilter("date", function(dateString, format) {
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    }).format(date);
   });
+
+  //collections
+  // eleventyConfig.addCollection("posterImages", function (collectionApi) {
+  //   const dir = "src/imgs/posters";
+  //   return (
+  //     fs
+  //       .readdirSync(dir)
+  //       .filter((file) => file.endsWith(".md"))
+  //       .map((file) => {
+  //         const fullPath = path.join(dir, file);
+  //         const fileContents = fs.readFileSync(fullPath, "utf8");
+  //         const { data } = matter(fileContents);
+  //         return {
+  //           ...data,
+  //           // Optionally, add a computed src for convenience
+  //           src: data.image,
+  //           file: file,
+  //         };
+  //       })
+  //       // Optional: sort by order field if present
+  //       .sort((a, b) => (a.order || 0) - (b.order || 0))
+  //   );
+  // });
 
   eleventyConfig.addCollection("bands", function (collectionApi) {
     const dir = "src/bands";
@@ -50,6 +60,24 @@ module.exports = function (eleventyConfig) {
         return {
           ...data,
           file: file,
+        };
+      });
+  });
+
+  eleventyConfig.addCollection("shows", function (collectionApi) {
+    const dir = "src/shows";
+    return fs
+      .readdirSync(dir)
+      .filter((file) => file.endsWith(".md"))
+      .map((file) => {
+        const fullPath = path.join(dir, file);
+        const fileContents = fs.readFileSync(fullPath, "utf8");
+        const { data } = matter(fileContents);
+        return {
+          ...data,
+          file: file,
+          url: `/shows/${file.replace(/\.md$/, '')}/`,
+          date: data.date ? new Date(data.date) : null
         };
       });
   });

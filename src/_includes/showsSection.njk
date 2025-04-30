@@ -6,11 +6,18 @@
         <div
             class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
             <!-- Photo n -->
-            {% for img in collections.posterImages %}
-                <div class="relative bg-black border border-light overflow-hidden">
-                    <!-- Shimmer overlay -->
-                    <div class="shimmer-overlay absolute inset-0 z-10 pointer-events-none"></div><img src="{{ img.src }}" srcset="{{ img.srcset }}" sizes="(max-width: 640px) 200px, (max-width: 1024px) 400px, 1080px" alt="{{ img.alt }}" loading="lazy" class="w-full h-full object-cover shimmer-img" />
-                </div>
+            {# {{collections.shows|dump}} #}
+            {% for show in collections.shows %}
+                <a href="{{ show.url }}" class="relative bg-black border border-light overflow-hidden group">
+                    <div class="absolute top-4 left-4 bg-black/80 text-white px-3 py-1 rounded">
+                        <span class="text-sm">{{ show.date | date("MMMM D, YYYY") }}</span>
+                    </div>
+                    <img src="{{ show.poster }}" srcset="{{ show.poster }}" 
+                         sizes="(max-width: 640px) 200px, (max-width: 1024px) 400px, 1080px" 
+                         alt="{{ show.title }} at {{ show.venue }}" 
+                         loading="lazy" 
+                         class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                </a>
             {% endfor %}
         </div>
     </div>
