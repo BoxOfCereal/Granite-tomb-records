@@ -9,14 +9,17 @@
       </button>
       <div id="nav-menu" class="flex flex-col items-center space-y-4 mt-4 max-h-0 overflow-hidden transition-all duration-300">
         {% for item in navigation %}
-          <a href="{{ item.url }}" class="text-white hover:text-muted uppercase text-sm tracking-widest transition text-center">{{ item.title }}</a>
+          {% set isActive = (item.url == '/' and page.url == '/') or (item.url != '/' and page.url.startsWith(item.url)) %}
+          <a href="{{ item.url }}" class="text-white hover:text-muted uppercase {% if isActive %}text-lg{% else %}text-sm{% endif %} tracking-widest transition">{{ item.title }}</a>
         {% endfor %}
       </div>
     </div>
+
     <!-- Desktop Nav -->
     <div class="hidden md:flex justify-center space-x-12">
       {% for item in navigation %}
-        <a href="{{ item.url }}" class="text-white hover:text-muted uppercase text-sm tracking-widest transition">{{ item.title }}</a>
+        {% set isActive = (item.url == '/' and page.url == '/') or (item.url != '/' and page.url.startsWith(item.url)) %}
+        <a href="{{ item.url }}" class="text-white hover:text-muted uppercase {% if isActive %}text-lg{% else %}text-sm{% endif %} tracking-widest transition">{{ item.title }}</a>
       {% endfor %}
     </div>
   </div>

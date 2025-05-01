@@ -1,16 +1,24 @@
 <section class=" bg-black py-8" id="shows">
     <div class="container mx-auto px-4 ">
-      <a href="/shows/">
-        <h2 class="text-3xl uppercase mb-12 text-center">Shows</h2>
-      </a>
+      {# The reason I had to put block on the link element is because the link by default is inline. I wanted it to be blocked so I could center it with margin auto. #}
+        {% if page.url == "/" %}
+        <a href="/shows/" class="text-center mx-auto block">
+            <button class="border border-white rounded p-2 h-16">
+                <h2 class="text-3xl uppercase  text-center">Shows</h2>
+            </button>
+        </a>
+        {% endif %}
         <div
             class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
             <!-- Photo n -->
             {# {{collections.shows|dump}} #}
             {% for show in collections.shows %}
                 <a href="{{ show.url }}" class="relative bg-black overflow-hidden group flex flex-col">
-                    <div class="p-4">
-                        <span class="text-white text-md">{{ show.date | date("MMMM D, YYYY") }}</span>
+                    <div class="p-4 pt-2 flex flex-col">
+                        <div class="flex justify-between">
+                            <span class="text-white text-lg">{{ show.date | date("MM/DD/YYYY") }}</span>
+                            <h3 class="text-white text-lg text-right">{{ show.venue }}</h3>
+                        </div>
                     </div>
                     <img src="{{ show.poster }}" srcset="{{ show.poster }}" 
                          sizes="(max-width: 640px) 200px, (max-width: 1024px) 400px, 1080px" 

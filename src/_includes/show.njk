@@ -1,10 +1,10 @@
 ---
 layout: "layouts/base.njk"
 ---
-<p>TEST</p>
+
 <section class="py-12 bg-black min-h-screen">
   <div class="container mx-auto px-4 max-w-4xl">
-    <div class="bg-dark p-8 border border-light rounded-sm shadow-lg">
+    <div class="bg-black p-8  shadow-lg">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- Poster Column -->
         <div>
@@ -18,7 +18,7 @@ layout: "layouts/base.njk"
         <!-- Details Column -->
         <div class="space-y-6">
           <h1 class="text-3xl uppercase text-light">{{ title }}</h1>
-          <p class="text-muted">{{ show.date | date("MMMM D, YYYY") }}</p>
+          <p class="text-muted">{{ show.date  }}</p>
           
           {% if description %}
             <p class="text-base text-light">{{ description }}</p>
