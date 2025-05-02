@@ -13,7 +13,9 @@
             <!-- Photo n -->
             {# {{collections.shows|dump}} #}
             {% for show in collections.shows %}
-                <a href="{{ show.url }}" class="relative bg-black overflow-hidden group flex flex-col">
+                {# <a href="{{ show.url }}" class="relative bg-black overflow-hidden group flex flex-col"> #}
+                <a href="{{ show.event_url }}" class="relative bg-black overflow-hidden group flex flex-col">
+                    
                     <div class="p-4 pt-2 flex flex-col">
                         <div class="flex justify-between">
                             <span class="text-white text-lg">{{ show.date | date("MM/DD/YYYY") }}</span>

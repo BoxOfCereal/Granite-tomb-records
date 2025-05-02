@@ -75,6 +75,9 @@ module.exports = function (eleventyConfig) {
         const { data } = matter(fileContents);
         return {
           ...data,
+          body: data.body,
+          event_url: data.event_url,
+          tickets: data.tickets,
           file: file,
           url: `/shows/${file.replace(/\.md$/, '')}/`,
           date: data.date ? new Date(data.date) : null

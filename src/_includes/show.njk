@@ -37,6 +37,20 @@ layout: "layouts/base.njk"
               <p class="text-base text-light">{{ address }}</p>
             </div>
           {% endif %}
+          
+          {% if event_url %}
+            <div class="flex items-center space-x-4">
+              <span class="text-light">Event URL:</span>
+              <p class="text-base text-light"><a href="{{ event_url }}">{{ event_url }}</a></p>
+            </div>
+          {% endif %}
+          
+          {% if tickets_url %}
+            <div class="flex items-center space-x-4">
+              <span class="text-light">Tickets:</span>
+              <p class="text-base text-light"><a href="{{ tickets }}">{{ tickets }}</a></p>
+            </div>
+          {% endif %}
         </div>
       </div>
     </div>
