@@ -30,12 +30,12 @@
       <div class="flex-grow space-y-4 mt-6 md:mt-0 md:max-h-[32rem] md:overflow-y-auto">
         {% for video in videos %}
         <button
-          class="flex w-full items-center gap-3 text-left bg-gray-900 hover:bg-gray-800 p-2 rounded-lg shadow transition group"
+          class="flex w-full items-center gap-3 text-left bg-gray-900 hover:bg-gray-800 p-2 rounded-lg shadow transition group video-button"
           style="min-height: 4.5rem;"
-          onclick="changeVideo('{{ video.id }}', 
-          '{{ video.title | escape }}',
-          '{{ video.date | escape }}', 
-          '{{ video.description | escape }}')"
+          data-video-id="{{ video.id }}"
+          data-video-title="{{ video.title | escape }}"
+          data-video-date="{{ video.date | escape }}"
+          data-video-description="{{ video.description | escape }}"
         >
           <img src="https://img.youtube.com/vi/{{ video.id }}/hqdefault.jpg" alt="{{ video.title }} thumbnail" class="w-20 h-12 object-cover rounded-md border border-gray-700 group-hover:border-white transition" loading="lazy">
           <div class="flex flex-col flex-1 min-w-0">
@@ -52,11 +52,19 @@
 </section>
 
 <script>
-  function changeVideo(videoId, title, date, description) {
-    const iframe = document.getElementById('main-video');
-    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-    document.getElementById('video-title').textContent = title;
-    document.getElementById('video-date').textContent = date;
-    document.getElementById('video-description').textContent = description;
-  }
+  // Add click handlers to all video buttons
+  document.querySelectorAll('.video-button').forEach(button => {
+    button.addEventListener('click', function() {
+      const videoId = this.dataset.videoId;
+      const title = this.dataset.videoTitle;
+      const date = this.dataset.videoDate;
+      const description = this.dataset.videoDescription;
+      
+      const iframe = document.getElementById('main-video');
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+      document.getElementById('video-title').textContent = title;
+      document.getElementById('video-date').textContent = date;
+      document.getElementById('video-description').textContent = description;
+    });
+  });
 </script>
