@@ -14,28 +14,32 @@ layout: "layouts/base.njk"
         <p class="mb-6 text-base text-light">{{ description }}</p>
       {% endif %}
 
+      {% set iconSize = "text-2xl" %}
       {% if social %}
         <div class="flex flex-wrap justify-center gap-4 mt-6">
           {% if social.website %}
-            <a href="{{ social.website }}" class="text-light hover:underline" target="_blank" rel="noopener" aria-label="Website"><i class="fas fa-globe"></i></a>
+            <a href="{{ social.website }}" class="text-light hover:underline " target="_blank" rel="noopener" aria-label="Website"><i class="fas fa-globe {{ iconSize }}"></i></a>
           {% endif %}
           {% if social.instagram %}
-            <a href="{{ social.instagram }}" class="text-light hover:underline" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="{{ social.instagram }}" class="text-light hover:underline" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram {{ iconSize }}"></i></a>
           {% endif %}
           {% if social.facebook %}
-            <a href="{{ social.facebook }}" class="text-light hover:underline" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="{{ social.facebook }}" class="text-light hover:underline" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook {{ iconSize }}"></i></a>
           {% endif %}
           {% if social.twitter %}
-            <a href="{{ social.twitter }}" class="text-light hover:underline" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="{{ social.twitter }}" class="text-light hover:underline" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter {{ iconSize }}"></i></a>
           {% endif %}
           {% if social.youtube %}
-            <a href="{{ social.youtube }}" class="text-light hover:underline" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="{{ social.youtube }}" class="text-light hover:underline" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube {{ iconSize }}"></i></a>
           {% endif %}
           {% if social.tiktok %}
-            <a href="{{ social.tiktok }}" class="text-light hover:underline" target="_blank" rel="noopener" aria-label="Tiktok"><i class="fab fa-tiktok"></i></a>
+            <a href="{{ social.tiktok }}" class="text-light hover:underline" target="_blank" rel="noopener" aria-label="Tiktok"><i class="fab fa-tiktok {{ iconSize }}"></i></a>
           {% endif %}
           {% if social.bandcamp %}
-            <a href="{{ social.bandcamp }}" class="text-light hover:underline" target="_blank" rel="noopener" aria-label="Bandcamp"><i class="fab fa-bandcamp"></i></a>
+            <a href="{{ social.bandcamp }}" class="text-light hover:underline" target="_blank" rel="noopener" aria-label="Bandcamp"><i class="fab fa-bandcamp {{ iconSize }}"></i></a>
+          {% endif %}
+          {% if social.twitch %}
+            <a href="{{ social.twitch }}" class="text-light hover:underline" target="_blank" rel="noopener" aria-label="Twitch"><i class="fab fa-twitch {{ iconSize }}"></i></a>
           {% endif %}
 
         </div>

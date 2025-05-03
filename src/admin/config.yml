@@ -73,6 +73,7 @@ collections:
           - { label: "TikTok", name: "tiktok", widget: "string", required: false }
           - { label: "Bluesky", name: "bluesky", widget: "string", required: false }
           - { label: "Bandcamp", name: "bandcamp", widget: "string", required: false }
+          - { label: "Twitch", name: "twitch", widget: "string", required: false }
 
   - name: "videos"
     label: "YouTube Videos"
