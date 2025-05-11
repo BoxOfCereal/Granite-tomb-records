@@ -1,4 +1,5 @@
 # Use DecapBridge auth (required)
+# I am not changing the repo name to Granite Tomb Productions
 backend:
   name: git-gateway
   repo: BoxOfCereal/Granite-tomb-records

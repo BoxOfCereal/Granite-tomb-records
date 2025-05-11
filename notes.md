@@ -8,6 +8,7 @@ https://tjrgg.github.io/simple-youtube-api/master/
 
 ### 2025-04-29
 #### YouTube API Quota
+
 https://console.cloud.google.com/apis/api/youtube.googleapis.com/quotas?authuser=3&project=granite-tomb-records&supportedpurview=project
 
 ### 2025-04-25
