@@ -1,11 +1,8 @@
 ---
 permalink: /sitemap.xml
 eleventyExcludeFromCollections: true
-{# I'm not entirely sure how the loop works.But I'm pretty sure that in the front matter of all the NJfiles I could put eleventyExcludeFromCollections: true
-https://11ty.recipes/recipes/add-a-sitemap/ 
- #}
 ---
-
+{# I'm not entirely sure how the loop works.But I'm pretty sure that in the front matter of all the NJfiles I could put eleventyExcludeFromCollections: true `https://11ty.recipes/recipes/add-a-sitemap/ ` #}
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   {% for page in collections.all %}

@@ -11,6 +11,9 @@ module.exports = function (eleventyConfig) {
   // Add admin directory decap
   eleventyConfig.addPassthroughCopy("src/admin");
 
+  // Passthrough file copy for robots.txt and other static files
+  eleventyConfig.addPassthroughCopy("src/robots.txt");
+
   // Add gray-matter
   //decap
   const matter = require("gray-matter");
