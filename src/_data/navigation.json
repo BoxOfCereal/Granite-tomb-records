@@ -1,8 +1,8 @@
 [
   { "title": "Home", "url": "/" },
+  { "title": "Shows", "url": "/shows/" },
   { "title": "Bands", "url": "/bands/" },
   { "title": "Videos", "url": "/videos/" },
-  { "title": "Shows", "url": "/shows/" },
   { "title": "About", "url": "/about/" },
   { "title": "Contact", "url": "/contact/" }
 ]
