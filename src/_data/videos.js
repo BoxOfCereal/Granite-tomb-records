@@ -54,8 +54,8 @@ async function resolveChannelId(youtube, username) {
 }
 
 // Helper to fetch channel videos
-async function fetchChannelVideos(channelId, apiKey) {
-  console.log(`[videos.js] Fetching videos for channel: ${channelId}`);
+async function fetchChannelVideos(channelId, apiKey, maxVideos = 200) {
+  console.log(`[videos.js] Fetching videos for channel: ${channelId}, max videos: ${maxVideos}`);
   
   // Initialize YouTube API client
   const youtube = google.youtube({
@@ -82,33 +82,45 @@ async function fetchChannelVideos(channelId, apiKey) {
     const uploadsPlaylistId = 
       channelResponse.data.items[0].contentDetails.relatedPlaylists.uploads;
 
-    // Fetch videos from uploads playlist
-    const playlistItemsResponse = await youtube.playlistItems.list({
-      part: 'snippet',
-      playlistId: uploadsPlaylistId,
-      maxResults: 50
-    });
+    // Fetch videos from uploads playlist with pagination
+    let allVideos = [];
+    let pageToken = null;
+    let remainingVideos = maxVideos;
 
-    // Map video data
-    const mapped = playlistItemsResponse.data.items.map((item) => {
-      const snippet = item.snippet;
-      return {
-        id: snippet.resourceId.videoId,
-        title: snippet.title,
-        date: snippet.publishedAt,
-        thumbnail: 
-          snippet.thumbnails.medium?.url || 
-          snippet.thumbnails.default?.url || 
-          null,
-        description: snippet.description,
-      };
-    });
+    while (remainingVideos > 0) {
+      const playlistItemsResponse = await youtube.playlistItems.list({
+        part: 'snippet',
+        playlistId: uploadsPlaylistId,
+        maxResults: Math.min(50, remainingVideos),
+        pageToken: pageToken || undefined
+      });
 
-    console.log(`[videos.js] Fetched ${mapped.length} videos from channel ${resolvedChannelId}`);
-    return mapped;
+      const pageVideos = playlistItemsResponse.data.items.map((item) => {
+        const snippet = item.snippet;
+        return {
+          id: snippet.resourceId.videoId,
+          title: snippet.title,
+          date: snippet.publishedAt,
+          thumbnail: 
+            snippet.thumbnails.medium?.url || 
+            snippet.thumbnails.default?.url || 
+            'https://via.placeholder.com/320x180'
+        };
+      });
+
+      allVideos = allVideos.concat(pageVideos);
+      remainingVideos -= pageVideos.length;
+
+      // Break if no more pages or reached max videos
+      pageToken = playlistItemsResponse.data.nextPageToken;
+      if (!pageToken) break;
+    }
+
+    console.log(`[videos.js] Fetched ${allVideos.length} videos`);
+    return allVideos;
   } catch (err) {
-    console.error(`[videos.js] Failed to fetch videos for channel: ${channelId}`, err);
-    return [];
+    console.error(`[videos.js] Failed to fetch channel videos: ${err.message}`, err);
+    throw err;
   }
 }
 
