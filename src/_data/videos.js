@@ -1,9 +1,7 @@
-const YouTube = require("simple-youtube-api");
-const fs = require("fs");
-const path = require("path");
+const { google } = require('googleapis');
+const fs = require('fs');
+const path = require('path');
 
-// helpers
-//
 // Helper to load API key from .secrets
 function getYouTubeApiKey() {
   // First, check environment variable (for cloud)
@@ -23,70 +21,99 @@ function getYouTubeApiKey() {
   throw new Error("YOUTUBE_API_KEY not found in environment or .secrets file");
 }
 
-// Helper to extract playlist ID from URL
-function getPlaylistId(url) {
-  const match = url.match(/[?&]list=([a-zA-Z0-9_-]+)/);
-  if (match) {
-    console.log(
-      `[videos.js] Extracted playlist ID: ${match[1]} from URL: ${url}`
-    );
-    return match[1];
-  } else {
-    console.warn(
-      `[videos.js] No playlist ID found in URL, using raw input: ${url}`
-    );
-    return url;
+// Helper to resolve username to channel ID
+async function resolveChannelId(youtube, username) {
+  console.log(`[videos.js] Resolving channel ID for username: ${username}`);
+  try {
+    // Remove @ if present and handle full URL
+    let cleanUsername = username.startsWith('@') 
+      ? username.slice(1) 
+      : username.includes('youtube.com/@') 
+        ? username.split('/@')[1] 
+        : username;
+
+    // Use YouTube Data API to search for the channel
+    const response = await youtube.search.list({
+      part: 'id,snippet',
+      type: 'channel',
+      q: cleanUsername,
+      maxResults: 1
+    });
+
+    if (response.data.items.length === 0) {
+      throw new Error(`No channel found for username: ${cleanUsername}`);
+    }
+
+    const channelId = response.data.items[0].id.channelId;
+    console.log(`[videos.js] Resolved channel ID: ${channelId}`);
+    return channelId;
+  } catch (err) {
+    console.error(`[videos.js] Failed to resolve channel ID for username: ${username}`, err);
+    throw err;
   }
 }
 
-// Helper to fetch playlist items
-async function fetchPlaylistItems(playlistId, apiKey) {
-  console.log(`[videos.js] Fetching playlist: ${playlistId}`);
-  const youtube = new YouTube(apiKey);
-  let playlist, videos;
-  try {
-    playlist = await youtube.getPlaylistByID(playlistId);
-    console.log(`[videos.js] Playlist title: ${playlist.title}`);
-  } catch (err) {
-    console.error(`[videos.js] Failed to fetch playlist: ${playlistId}`, err);
-    return [];
-  }
-  try {
-    videos = await playlist.getVideos();
-    console.log(
-      `[videos.js] Fetched ${videos.length} videos from playlist ${playlistId}`
-    );
-  } catch (err) {
-    console.error(
-      `[videos.js] Failed to fetch videos for playlist: ${playlistId}`,
-      err
-    );
-    return [];
-  }
-  const mapped = videos.map((video) => {
-    let thumb =
-      video.thumbnails && video.thumbnails.medium
-        ? video.thumbnails.medium.url
-        : video.thumbnails && video.thumbnails.default
-        ? video.thumbnails.default.url
-        : null;
-    if (!thumb) console.warn(`[videos.js] No thumbnail for video ${video.id}`);
-    return {
-      id: video.id,
-      title: video.title,
-      date: video.publishedAt,
-      thumbnail: thumb,
-      description: video.description,
-    };
+// Helper to fetch channel videos
+async function fetchChannelVideos(channelId, apiKey) {
+  console.log(`[videos.js] Fetching videos for channel: ${channelId}`);
+  
+  // Initialize YouTube API client
+  const youtube = google.youtube({
+    version: 'v3',
+    auth: apiKey
   });
-  console.log(`[videos.js] Mapped video data for playlist ${playlistId}`);
-  return mapped;
+
+  try {
+    // Resolve username to channel ID if needed
+    const resolvedChannelId = channelId.startsWith('@') || channelId.includes('youtube.com/@')
+      ? await resolveChannelId(youtube, channelId)
+      : channelId;
+
+    // Fetch uploads playlist
+    const channelResponse = await youtube.channels.list({
+      part: 'contentDetails',
+      id: resolvedChannelId
+    });
+
+    if (channelResponse.data.items.length === 0) {
+      throw new Error(`No channel found with ID: ${resolvedChannelId}`);
+    }
+
+    const uploadsPlaylistId = 
+      channelResponse.data.items[0].contentDetails.relatedPlaylists.uploads;
+
+    // Fetch videos from uploads playlist
+    const playlistItemsResponse = await youtube.playlistItems.list({
+      part: 'snippet',
+      playlistId: uploadsPlaylistId,
+      maxResults: 50
+    });
+
+    // Map video data
+    const mapped = playlistItemsResponse.data.items.map((item) => {
+      const snippet = item.snippet;
+      return {
+        id: snippet.resourceId.videoId,
+        title: snippet.title,
+        date: snippet.publishedAt,
+        thumbnail: 
+          snippet.thumbnails.medium?.url || 
+          snippet.thumbnails.default?.url || 
+          null,
+        description: snippet.description,
+      };
+    });
+
+    console.log(`[videos.js] Fetched ${mapped.length} videos from channel ${resolvedChannelId}`);
+    return mapped;
+  } catch (err) {
+    console.error(`[videos.js] Failed to fetch videos for channel: ${channelId}`, err);
+    return [];
+  }
 }
 
-//https://stackoverflow.com/questions/5311334/what-is-the-purpose-of-node-js-module-exports-and-how-do-you-use-it
-//module.exports is the object that's actually returned as the result of a require call.
 module.exports = async function () {
-  console.log("[videos.js] Starting YouTube playlist fetcher...");
+  console.log("[videos.js] Starting YouTube channel video fetcher...");
   let apiKey;
   try {
     apiKey = getYouTubeApiKey();
@@ -95,58 +122,19 @@ module.exports = async function () {
     return [];
   }
 
-
-  async function loadPlaylistUrlsFromFiles() {
-    const playlistDir = path.join(__dirname, "../../src/playlists");
-    console.log(`[videos.js] Looking for playlists in: ${playlistDir}`);
-
-    // Get all markdown files in the playlists directory
-    const files = fs
-      .readdirSync(playlistDir)
-      .filter((file) => file.endsWith(".md"));
-
-    console.log(`[videos.js] Found ${files.length} playlist files`);
-    const matter = require("gray-matter");
-
-    const urls = [];
-    for (const file of files) {
-      const filePath = path.join(playlistDir, file);
-      const content = fs.readFileSync(filePath, "utf-8");
-
-      const data = matter(content);
-      const url = data.data.url;
-
-      urls.push(url);
-      // console.log(`[videos.js] Added URL from ${file}: ${url}`);
-    }
-
-
-    return urls;
-  }
-
-  const playlistUrls = await loadPlaylistUrlsFromFiles();
-  console.log(
-    `[videos.js] Loaded ${playlistUrls.length} playlist URLs from files`
-  );
-
-  let allVideos = [];
+  // Channel ID or username
+  const channelId = '@taylorbelanger7982'; // Replace with actual YouTube channel
   
-  for (const url of playlistUrls) {
-    console.log(`[videos.js] Processing playlist URL: ${url}`);
-    const playlistId = getPlaylistId(url);
-    const videos = await fetchPlaylistItems(playlistId, apiKey);
-    allVideos = allVideos.concat(videos);
-    console.log(`[videos.js] Current total videos: ${allVideos.length}`);
-  }
-
-  console.log(`[videos.js] Final video array: ${allVideos.length} videos`);
-  if (allVideos.length > 0) {
-    console.log(`[videos.js] First video: ${allVideos[0].title}`);
-    console.log(`[videos.js] Last video: ${allVideos[allVideos.length - 1].title}`);
+  const videos = await fetchChannelVideos(channelId, apiKey);
+  
+  console.log(`[videos.js] Final video array: ${videos.length} videos`);
+  if (videos.length > 0) {
+    console.log(`[videos.js] First video: ${videos[0].title}`);
+    console.log(`[videos.js] Last video: ${videos[videos.length - 1].title}`);
   } else {
     console.log('[videos.js] No videos found');
   }
 
   // return the videos
-  return allVideos;
+  return videos;
 };

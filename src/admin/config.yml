@@ -20,7 +20,7 @@ backend:
 logo_url: https://decapbridge.com/decapcms-with-bridge.svg
 
 # Add site links in DecapCMS (optional)
-site_url: https://6803a316d0758b0008e05c43--papaya-choux-523d7b.netlify.app
+site_url: https://granitetombproductions.com
 
 media_folder: src/imgs
 public_folder: /imgs
