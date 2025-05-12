@@ -1,30 +1,5 @@
 # Getting more than 50 videos from YouTube API
 
-## STart
-
-https://stackoverflow.com/questions/52803732/youtube-api-v3-maximum-number-of-videos-only-50
-By https://stackoverflow.com/users/1941537/user1941537
-
-##
-
-The answer in the stack overflow pointed to [The paginated implementation](https://developers.google.com/youtube/v3/guides/implementation/pagination) from YouTube's Documentation
-
-## vibe start
-
-@videos.js Right now the script only gives me 50 videos.
-
-```
-    The YouTube Data API (v3) uses the `maxResults` parameter to determine the number of items returned in a query response.
-    API `list` methods, such as `videos.list` and `playlists.list`, support the `maxResults` parameter for pagination.
-    If more results are available, the API response includes `nextPageToken` and/or `prevPageToken` properties.
-    These token values can be used to set the `pageToken` parameter to retrieve additional result pages.
-    The initial request fetches the first page of results, and subsequent requests use the `pageToken` from the previous response to get the next page of results.
-```
-
-This is a summary of how the data api works from youtube can you please paginate the video.js script so that I can get more than fifty videos
-
-...
-
 ## At a very high level
 
 1. The first thing I did is I identified what I wanted to change. In this case , I wanted to get more than 50 videos from the YouTube API.
@@ -61,3 +36,8 @@ This is a summary of how the data api works from youtube can you please paginate
 8. I ran `npx @11ty/eleventy --serve` and checked the console to see if it worked. Then checked the website and saw that the videos were there.
 
 9. I added all of the changes to git, committed them, and pushed to the remote repository.
+```bash
+git add .
+git commit -m "feat: added pagination to videos.js"
+git push
+```
