@@ -1,0 +1,21 @@
+{
+	"geolocation": {
+		"data": {
+			"city": "Rochester",
+			"country": {
+				"code": "US",
+				"name": "United States"
+			},
+			"subdivision": {
+				"code": "NH",
+				"name": "New Hampshire"
+			},
+			"timezone": "America/New_York",
+			"latitude": 43.3044,
+			"longitude": -70.9794,
+			"postalCode": "03867"
+		},
+		"timestamp": 1747157023048
+	},
+	"siteId": "1fe5ffe9-58bb-4132-b2d1-9a8712892f71"
+}
